@@ -1,7 +1,7 @@
 """Command-line entry point."""
 
 import json
-from dataclasses import replace
+from dataclasses import asdict, replace
 from enum import StrEnum
 from pathlib import Path
 from typing import Annotated
@@ -16,14 +16,19 @@ from qkdsim.postprocess.estimation import ParameterAbort, estimate_parameters
 from qkdsim.postprocess.result import AbortEvidence, FinalKey
 from qkdsim.postprocess.sifting import sift
 from qkdsim.rng import SimRNG
-from qkdsim.simulation import calibrate_bb84, run_bb84_session, simulate_bb84
+from qkdsim.simulation import (
+    calibrate_bb84,
+    run_bb84_session,
+    run_e91_link,
+    simulate_bb84,
+)
 
 app = typer.Typer(help="Mô phỏng phân phối khóa lượng tử.", no_args_is_help=True)
 
 
 @app.callback()
 def root() -> None:
-    """Expose a command group even when only BB84 is registered."""
+    """Expose the command group."""
 
 
 @app.command()
@@ -66,6 +71,45 @@ def bb84(
             wilson=estimate.stats.wilson,
         )
     typer.echo(json.dumps(summary))
+
+
+@app.command()
+def e91(
+    config: Annotated[Path | None, typer.Option(help="Tệp cấu hình YAML.")] = None,
+) -> None:
+    """Mô phỏng E91 và xuất thống kê CHSH cùng kết quả tạo khóa."""
+    try:
+        settings = load_config(config)
+        result = run_e91_link(settings, authentication=AuthenticationPool())
+    except (OSError, ValueError) as exc:
+        raise typer.BadParameter(str(exc), param_hint="--config") from exc
+    bell = result.chsh
+    summary: dict[str, object] = {
+        "seed": settings.seed,
+        "backend": settings.e91.backend,
+        "sent": result.sent,
+        "coincident": result.coincident,
+        "sifted": result.sifted,
+        "chsh": asdict(bell) if bell is not None else None,
+        "chsh_lower": bell.lower_bound(settings.e91.chsh_z) if bell else None,
+    }
+    if isinstance(result.outcome, AbortEvidence):
+        summary.update(status="abort", reason=result.outcome.reason)
+        if result.outcome.stats is not None:
+            summary.update(
+                q_est=result.outcome.stats.q_est, q_ub=result.outcome.stats.q_ub
+            )
+    else:
+        key = result.outcome.alice
+        summary.update(
+            status="key_ready",
+            length_bits=key.length_bits,
+            q_est=key.qber,
+            q_ub=key.qber_ub,
+            auth_bits=key.auth_bits,
+            net_key_rate=key.net_key_rate,
+        )
+    typer.echo(json.dumps(summary, allow_nan=False))
 
 
 class DetectorOption(StrEnum):

@@ -174,3 +174,89 @@
   API theo phong cách ETSI và phục vụ mô phỏng cục bộ, chưa triển khai
   giao thức REST hay bộ kiểm tra tương thích của ETSI.
   [ETSI GS QKD 014, mục 5](https://www.etsi.org/deliver/etsi_gs/QKD/001_099/014/01.01.01_60/gs_QKD014v010101p.pdf)
+
+## M7
+
+- E91 dùng trạng thái `Φ+` theo đặc tả, còn bài báo gốc của Ekert dùng
+  singlet. Góc là góc Bloch. Phép đo `Ry(-φ)` rồi đo Z cho tương quan
+  `cos(a−b)` và tổng CHSH dương theo thứ tự dấu trong đặc tả. Backend Aer
+  gom các lượt có cùng thiết lập thành các mạch hai qubit, dùng ma trận
+  mật độ cho các góc ngoài Clifford và lưu từng lượt đo. Kênh Werner
+  được gắn vào cổng CX với xác suất khử cực `1−V`.
+  [Ekert (1991)](https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.67.661)
+- `channel.length_km` là chiều dài mỗi nhánh từ nguồn đến người đo. Hai
+  nhánh chịu suy hao và hiệu suất detector độc lập. Khi tắt đếm tối, xác
+  suất trùng phùng là tích hiệu suất của hai nhánh. Bật đếm tối dùng cùng
+  mô hình detector như BB84. Suy hao trên nhánh Bob diễn ra trước Eve.
+  Nhiễu quang thêm trên nhánh Bob sau Eve và nhân tương quan với
+  `1−2·channel_qber`. Công thức Werner thuần áp dụng khi tắt các nguồn
+  nhiễu bổ sung, kể cả mức lệch trục mặc định.
+- Eve đo rồi phát lại trên nhánh Bob. Với góc Eve `e`, tương quan sau
+  chặn là `V·cos(a−e)·cos(b−e)`. Ở chế độ Z/X đồng xác suất, tương quan
+  trên các cặp bị chặn bằng một nửa tương quan Werner, nên dự báo CHSH
+  dưới chặn toàn phần là `√2`. Với thiết lập khóa E91, dự báo QBER khi
+  chặn toàn phần bằng `1/4` cho Z/X đồng xác suất, `3/8` cho Z cố định
+  và `1/8` cho X cố định.
+- `uv run python experiments/e91_acceptance.py` tái lập kiểm tra hai
+  backend với cấu hình Werner thuần. Mọi điểm kiểm tra nằm trong dung
+  sai bốn độ lệch chuẩn giải tích đối với CHSH và QBER. Ở `V=1`, CHSH
+  đo được là `2.83677 ± 0.00946` với NumPy và `2.82936 ± 0.00948` với
+  Aer, trong đó số sau dấu cộng trừ là sai số chuẩn. Chặn toàn phần
+  Z/X ngẫu nhiên cho `S=1.42426` và `1.42230`, với QBER cặp khóa
+  `0.24693` và `0.24887` tương ứng. Các lượt chặn toàn phần đều qua
+  kiểm tra `S≤2` và bị dừng tại cổng CHSH.
+  [Kết quả M7](../results/e91_acceptance.json)
+- Sai số chuẩn của CHSH cộng phương sai các trung bình theo điều kiện
+  cỡ mẫu từng nhóm, dùng hiệu chỉnh Bessel. Mỗi nhóm cần ít nhất hai
+  lượt đo để ước lượng sai số chuẩn. Cận `S−z·σ_S` dùng xấp xỉ chuẩn
+  và phục vụ giám sát mô phỏng. Sau cổng CHSH, phiên dùng tham số lấy
+  mẫu, Cascade và độ dài khóa trong mục cấu hình `bb84`. Backend chọn
+  riêng bằng `e91.backend`. Cỡ mẫu hữu hạn có thể khiến phiên vượt qua
+  cổng CHSH nhưng dừng ở cận QBER. CLI xác thực bản ghi công khai bằng
+  HMAC, gồm cả các bit kiểm tra CHSH. Chứng minh an toàn độc lập thiết bị
+  và phân tích lỗ hổng do chọn cặp trùng phùng nằm ngoài mô hình này.
+
+## M8
+
+- Bộ kiểm tra triển khai tần suất bit, tần suất theo khối, số chuỗi liên
+  tiếp, chuỗi bit một dài nhất trong khối và entropy xấp xỉ theo
+  SP 800-22 Rev. 1a. Báo cáo tổng hợp ghi p-value của từng phép thử và
+  dùng `null` khi mẫu ngắn hơn khuyến nghị của phép thử đó. Ví dụ chuỗi
+  dài nhất trong tài liệu có hai p-value hơi khác nhau. Kiểm thử đối
+  chiếu với phép tính dùng các xác suất làm tròn được in ở mục 2.4.4.
+  [NIST SP 800-22 Rev. 1a](https://csrc.nist.gov/pubs/sp/800/22/r1/upd1/final)
+- Ước lượng min-entropy dùng tần suất biên lớn hơn của hai bit,
+  `−log₂(max(p̂₀,p̂₁))`. Chuỗi xen kẽ cân bằng có thể đạt giá trị tối
+  đa ở phép ước lượng này và vẫn bị các phép thử chuỗi liên tiếp và
+  entropy xấp xỉ phát hiện. Các phép thử dùng để tìm sai lệch quan sát
+  được. Chứng minh an toàn mật mã cần phân tích riêng.
+- Mạch QRNG mô phỏng chuẩn bị `|0⟩`, áp dụng Hadamard rồi đo Z. Chọn
+  `bb84.basis_source: qrng` với `p_z: 0.5` để Alice và Bob lấy cơ sở
+  từ các lượt đo Aer, với cả hai backend BB84. Aer lấy mẫu giả ngẫu
+  nhiên từ seed dẫn xuất của phiên. Khóa dẫn xuất từ mô phỏng có seed
+  dự đoán được không an toàn trong thực tế.
+- `uv run python experiments/randomness_acceptance.py` so sánh các mẫu
+  có cùng độ dài từ khóa BB84 sau sàng lọc, khóa cuối của một phiên
+  BB84 khác, NumPy, mạch Hadamard và `secrets`. Cả hai phiên BB84 dùng
+  cơ sở từ Aer. Trong lượt đã lưu, mọi p-value đạt ngưỡng theo từng
+  phép thử. Các p-value của khóa cuối và `secrets` thay đổi giữa các
+  lần chạy do lấy ngẫu nhiên từ hệ điều hành.
+  [Kết quả kiểm tra M8](../results/randomness_acceptance.json)
+- `uv run python experiments/e15_quantum_security.py` tạo CSV từ kích
+  thước khóa và các mức an toàn cổ điển của NIST cho RSA và ECC. Cột
+  `quantum_query_bits` ghi số mũ `k/2` của số truy vấn tìm khóa theo
+  Grover. Độ sâu của mạch oracle và chi phí sửa lỗi lượng tử ảnh hưởng
+  đến chi phí thực tế. Khi chia không gian khóa cho nhiều bộ xử lý,
+  thời gian Grover theo mô hình truy vấn giảm theo căn bậc hai của số
+  bộ xử lý. Các hàng Shor ghi chi phí đa thức đối với phân tích thừa số
+  và logarit rời rạc trên đường cong elliptic, với ô số mũ truy vấn để
+  trống. Bảng này áp dụng cho tìm khóa, với giả định khóa có entropy
+  tương ứng và máy lượng tử đủ tài nguyên.
+  [CSV E15](../results/e15_quantum_security.csv),
+  [NIST SP 800-57 Phần 1, Bảng 2](https://doi.org/10.6028/NIST.SP.800-57pt1r5),
+  [RFC 8439](https://www.rfc-editor.org/rfc/rfc8439),
+  [Grover](https://arxiv.org/abs/quant-ph/9605043),
+  [Grassl và cộng sự](https://arxiv.org/abs/1512.04965),
+  [Jaques và cộng sự](https://arxiv.org/abs/1910.01700),
+  [Shor](https://arxiv.org/abs/quant-ph/9508027),
+  [Häner và cộng sự](https://arxiv.org/abs/2001.09580)

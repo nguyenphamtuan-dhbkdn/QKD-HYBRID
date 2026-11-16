@@ -1,0 +1,6 @@
+primitive,key_bits,classical_bits,quantum_attack,quantum_query_bits,quantum_cost_model
+AES-128,128,128,Grover,64.0,generic key-search queries
+AES-256,256,256,Grover,128.0,generic key-search queries
+ChaCha20,256,256,Grover,128.0,generic key-search queries
+RSA-2048,2048,112,Shor,,polynomial
+ECC P-256,256,128,Shor,,polynomial

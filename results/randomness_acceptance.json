@@ -1,0 +1,142 @@
+{
+  "git_commit": "9e7c872b532b7ad09ccdd2a818d19b0c76eaa14f",
+  "git_dirty": true,
+  "python": "3.11.18",
+  "library_versions": {
+    "numpy": "2.2.6",
+    "scipy": "1.15.3",
+    "qiskit": "2.1.2",
+    "qiskit-aer": "0.17.2"
+  },
+  "config": {
+    "session": {
+      "seed": 20260116,
+      "bb84": {
+        "n_pulses": 200000,
+        "p_z": 0.5,
+        "test_fraction": 0.1,
+        "k_min": 200,
+        "q_max": 0.11,
+        "eps_pe": 1e-10,
+        "eps_sec": 1e-09,
+        "eps_cor": 1e-12,
+        "ec_mode": "cascade",
+        "f_ec_ideal": 1.0,
+        "backend": "fast",
+        "cascade_passes": 4,
+        "basis_source": "qrng"
+      },
+      "channel": {
+        "length_km": 0.0,
+        "alpha_db_per_km": 0.2,
+        "e_misalign": 0.0,
+        "depol": 0.0,
+        "bitflip": 0.0,
+        "misalignment_theta": null,
+        "eta_det": 1.0,
+        "p_dark": 0.0
+      },
+      "attack": {
+        "kind": "none",
+        "p": 0.0,
+        "basis_mode": "random"
+      },
+      "e91": {
+        "n_pairs": 200000,
+        "visibility": 1.0,
+        "chsh_z": 5.0,
+        "backend": "fast"
+      },
+      "monitor": {
+        "detector": "sprt",
+        "alpha": 0.001,
+        "beta": 0.001,
+        "e0": 0.02,
+        "e1": 0.1,
+        "window_size": 50,
+        "max_seconds": 3600.0,
+        "max_msgs": 1000,
+        "lockdown_after": 3,
+        "backoff_seconds": 1.0
+      },
+      "crypto": {
+        "cipher": "aes256gcm",
+        "chunk_size": 65536,
+        "max_bytes_per_key": 1073741824
+      },
+      "source": {
+        "kind": "single_photon",
+        "mu": null
+      }
+    },
+    "alpha_per_test": 0.01,
+    "bits_per_sample": 16384
+  },
+  "seed": 20260116,
+  "unseeded_sources": [
+    "OS randomness for final-key privacy amplification",
+    "secrets"
+  ],
+  "samples": {
+    "bb84_raw_qrng_bases": {
+      "bit_count": 16384,
+      "p_values": {
+        "frequency": 0.8268447977168982,
+        "block_frequency": 0.7722089217021713,
+        "runs": 0.32474604277465347,
+        "longest_run": 0.16279683405325499,
+        "approximate_entropy": 0.8415767925794619
+      },
+      "min_entropy": 0.9975365611074649,
+      "below_alpha": []
+    },
+    "bb84_final_qrng_bases": {
+      "bit_count": 16384,
+      "p_values": {
+        "frequency": 1.0,
+        "block_frequency": 0.47076207327131997,
+        "runs": 0.03769784760034035,
+        "longest_run": 0.4993909428091251,
+        "approximate_entropy": 0.3256790238737031
+      },
+      "min_entropy": 1.0,
+      "below_alpha": []
+    },
+    "numpy": {
+      "bit_count": 16384,
+      "p_values": {
+        "frequency": 0.15057597282484683,
+        "block_frequency": 0.33534891731925276,
+        "runs": 0.5847737479422874,
+        "longest_run": 0.7650348184440033,
+        "approximate_entropy": 0.5382189389324545
+      },
+      "min_entropy": 0.9838881617794881,
+      "below_alpha": []
+    },
+    "aer_hadamard": {
+      "bit_count": 16384,
+      "p_values": {
+        "frequency": 0.34850142376108484,
+        "block_frequency": 0.5339051247289472,
+        "runs": 0.567803627321998,
+        "longest_run": 0.8211320473002051,
+        "approximate_entropy": 0.5095530694397685
+      },
+      "min_entropy": 0.9894718941135154,
+      "below_alpha": []
+    },
+    "secrets": {
+      "bit_count": 16384,
+      "p_values": {
+        "frequency": 0.45325470475373647,
+        "block_frequency": 0.8432120091002937,
+        "runs": 0.7871380956181493,
+        "longest_run": 0.8406937042160053,
+        "approximate_entropy": 0.6870673225894162
+      },
+      "min_entropy": 0.9915713779294193,
+      "below_alpha": []
+    }
+  }
+}

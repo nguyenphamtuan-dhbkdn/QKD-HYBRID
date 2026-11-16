@@ -1,0 +1,1268 @@
+{
+  "git_commit": "9e7c872b532b7ad09ccdd2a818d19b0c76eaa14f",
+  "git_dirty": true,
+  "python": "3.11.18",
+  "library_versions": {
+    "numpy": "2.2.6",
+    "scipy": "1.15.3",
+    "qiskit": "2.1.2",
+    "qiskit-aer": "0.17.2"
+  },
+  "seed": 20260116,
+  "chsh_settings": [
+    [
+      0,
+      0,
+      1
+    ],
+    [
+      0,
+      2,
+      -1
+    ],
+    [
+      2,
+      0,
+      1
+    ],
+    [
+      2,
+      2,
+      1
+    ]
+  ],
+  "points": [
+    {
+      "config": {
+        "seed": 20260116,
+        "bb84": {
+          "n_pulses": 200000,
+          "p_z": 0.5,
+          "test_fraction": 0.1,
+          "k_min": 200,
+          "q_max": 0.11,
+          "eps_pe": 1e-10,
+          "eps_sec": 1e-09,
+          "eps_cor": 1e-12,
+          "ec_mode": "cascade",
+          "f_ec_ideal": 1.0,
+          "backend": "fast",
+          "cascade_passes": 4,
+          "basis_source": "numpy"
+        },
+        "channel": {
+          "length_km": 0.0,
+          "alpha_db_per_km": 0.2,
+          "e_misalign": 0,
+          "depol": 0.0,
+          "bitflip": 0.0,
+          "misalignment_theta": null,
+          "eta_det": 1.0,
+          "p_dark": 0.0
+        },
+        "attack": {
+          "kind": "none",
+          "p": 0.0,
+          "basis_mode": "random"
+        },
+        "e91": {
+          "n_pairs": 200000,
+          "visibility": 0.6,
+          "chsh_z": 5.0,
+          "backend": "fast"
+        },
+        "monitor": {
+          "detector": "sprt",
+          "alpha": 0.001,
+          "beta": 0.001,
+          "e0": 0.02,
+          "e1": 0.1,
+          "window_size": 50,
+          "max_seconds": 3600.0,
+          "max_msgs": 1000,
+          "lockdown_after": 3,
+          "backoff_seconds": 1.0
+        },
+        "crypto": {
+          "cipher": "aes256gcm",
+          "chunk_size": 65536,
+          "max_bytes_per_key": 1073741824
+        },
+        "source": {
+          "kind": "single_photon",
+          "mu": null
+        }
+      },
+      "chsh": {
+        "counts": [
+          22315,
+          22269,
+          22066,
+          22292
+        ],
+        "correlations": [
+          0.4214653820300246,
+          -0.4208990075890251,
+          0.43242998277893596,
+          0.4298403014534362
+        ],
+        "s": 1.704634673851422,
+        "standard_error": 0.01213361157463337
+      },
+      "chsh_lower": 1.643966615978255,
+      "passes_chsh_gate": false,
+      "coincident": 200000,
+      "key_pairs": 44441,
+      "key_pair_errors": 8875,
+      "key_pair_qber": 0.199702976980716,
+      "expected_s": 1.697056274847714,
+      "expected_key_pair_qber": 0.2,
+      "s_within_4_sigma": true,
+      "qber_within_4_sigma": true
+    },
+    {
+      "config": {
+        "seed": 20260116,
+        "bb84": {
+          "n_pulses": 200000,
+          "p_z": 0.5,
+          "test_fraction": 0.1,
+          "k_min": 200,
+          "q_max": 0.11,
+          "eps_pe": 1e-10,
+          "eps_sec": 1e-09,
+          "eps_cor": 1e-12,
+          "ec_mode": "cascade",
+          "f_ec_ideal": 1.0,
+          "backend": "fast",
+          "cascade_passes": 4,
+          "basis_source": "numpy"
+        },
+        "channel": {
+          "length_km": 0.0,
+          "alpha_db_per_km": 0.2,
+          "e_misalign": 0,
+          "depol": 0.0,
+          "bitflip": 0.0,
+          "misalignment_theta": null,
+          "eta_det": 1.0,
+          "p_dark": 0.0
+        },
+        "attack": {
+          "kind": "none",
+          "p": 0.0,
+          "basis_mode": "random"
+        },
+        "e91": {
+          "n_pairs": 200000,
+          "visibility": 0.8,
+          "chsh_z": 5.0,
+          "backend": "fast"
+        },
+        "monitor": {
+          "detector": "sprt",
+          "alpha": 0.001,
+          "beta": 0.001,
+          "e0": 0.02,
+          "e1": 0.1,
+          "window_size": 50,
+          "max_seconds": 3600.0,
+          "max_msgs": 1000,
+          "lockdown_after": 3,
+          "backoff_seconds": 1.0
+        },
+        "crypto": {
+          "cipher": "aes256gcm",
+          "chunk_size": 65536,
+          "max_bytes_per_key": 1073741824
+        },
+        "source": {
+          "kind": "single_photon",
+          "mu": null
+        }
+      },
+      "chsh": {
+        "counts": [
+          22315,
+          22269,
+          22066,
+          22292
+        ],
+        "correlations": [
+          0.5638807976697289,
+          -0.5624410615654047,
+          0.5740958941357746,
+          0.5717746276691189
+        ],
+        "s": 2.272192381040027,
+        "standard_error": 0.011038360760947566
+      },
+      "chsh_lower": 2.2170005772352894,
+      "passes_chsh_gate": true,
+      "coincident": 200000,
+      "key_pairs": 44441,
+      "key_pair_errors": 4438,
+      "key_pair_qber": 0.09986273936230058,
+      "expected_s": 2.2627416997969525,
+      "expected_key_pair_qber": 0.09999999999999998,
+      "s_within_4_sigma": true,
+      "qber_within_4_sigma": true
+    },
+    {
+      "config": {
+        "seed": 20260116,
+        "bb84": {
+          "n_pulses": 200000,
+          "p_z": 0.5,
+          "test_fraction": 0.1,
+          "k_min": 200,
+          "q_max": 0.11,
+          "eps_pe": 1e-10,
+          "eps_sec": 1e-09,
+          "eps_cor": 1e-12,
+          "ec_mode": "cascade",
+          "f_ec_ideal": 1.0,
+          "backend": "fast",
+          "cascade_passes": 4,
+          "basis_source": "numpy"
+        },
+        "channel": {
+          "length_km": 0.0,
+          "alpha_db_per_km": 0.2,
+          "e_misalign": 0,
+          "depol": 0.0,
+          "bitflip": 0.0,
+          "misalignment_theta": null,
+          "eta_det": 1.0,
+          "p_dark": 0.0
+        },
+        "attack": {
+          "kind": "none",
+          "p": 0.0,
+          "basis_mode": "random"
+        },
+        "e91": {
+          "n_pairs": 200000,
+          "visibility": 0.9,
+          "chsh_z": 5.0,
+          "backend": "fast"
+        },
+        "monitor": {
+          "detector": "sprt",
+          "alpha": 0.001,
+          "beta": 0.001,
+          "e0": 0.02,
+          "e1": 0.1,
+          "window_size": 50,
+          "max_seconds": 3600.0,
+          "max_msgs": 1000,
+          "lockdown_after": 3,
+          "backoff_seconds": 1.0
+        },
+        "crypto": {
+          "cipher": "aes256gcm",
+          "chunk_size": 65536,
+          "max_bytes_per_key": 1073741824
+        },
+        "source": {
+          "kind": "single_photon",
+          "mu": null
+        }
+      },
+      "chsh": {
+        "counts": [
+          22315,
+          22269,
+          22066,
+          22292
+        ],
+        "correlations": [
+          0.6347748151467623,
+          -0.6312362476985944,
+          0.6417112299465241,
+          0.6427417907769604
+        ],
+        "s": 2.550464083568841,
+        "standard_error": 0.010332331641152357
+      },
+      "chsh_lower": 2.4988024253630794,
+      "passes_chsh_gate": true,
+      "coincident": 200000,
+      "key_pairs": 44441,
+      "key_pair_errors": 2168,
+      "key_pair_qber": 0.048783780743007585,
+      "expected_s": 2.5455844122715714,
+      "expected_key_pair_qber": 0.04999999999999999,
+      "s_within_4_sigma": true,
+      "qber_within_4_sigma": true
+    },
+    {
+      "config": {
+        "seed": 20260116,
+        "bb84": {
+          "n_pulses": 200000,
+          "p_z": 0.5,
+          "test_fraction": 0.1,
+          "k_min": 200,
+          "q_max": 0.11,
+          "eps_pe": 1e-10,
+          "eps_sec": 1e-09,
+          "eps_cor": 1e-12,
+          "ec_mode": "cascade",
+          "f_ec_ideal": 1.0,
+          "backend": "fast",
+          "cascade_passes": 4,
+          "basis_source": "numpy"
+        },
+        "channel": {
+          "length_km": 0.0,
+          "alpha_db_per_km": 0.2,
+          "e_misalign": 0,
+          "depol": 0.0,
+          "bitflip": 0.0,
+          "misalignment_theta": null,
+          "eta_det": 1.0,
+          "p_dark": 0.0
+        },
+        "attack": {
+          "kind": "none",
+          "p": 0.0,
+          "basis_mode": "random"
+        },
+        "e91": {
+          "n_pairs": 200000,
+          "visibility": 1.0,
+          "chsh_z": 5.0,
+          "backend": "fast"
+        },
+        "monitor": {
+          "detector": "sprt",
+          "alpha": 0.001,
+          "beta": 0.001,
+          "e0": 0.02,
+          "e1": 0.1,
+          "window_size": 50,
+          "max_seconds": 3600.0,
+          "max_msgs": 1000,
+          "lockdown_after": 3,
+          "backoff_seconds": 1.0
+        },
+        "crypto": {
+          "cipher": "aes256gcm",
+          "chunk_size": 65536,
+          "max_bytes_per_key": 1073741824
+        },
+        "source": {
+          "kind": "single_photon",
+          "mu": null
+        }
+      },
+      "chsh": {
+        "counts": [
+          22315,
+          22269,
+          22066,
+          22292
+        ],
+        "correlations": [
+          0.7068339681828366,
+          -0.7025461403745117,
+          0.7144928849814194,
+          0.7129014893235242
+        ],
+        "s": 2.8367744828622916,
+        "standard_error": 0.009455849156461296
+      },
+      "chsh_lower": 2.789495237079985,
+      "passes_chsh_gate": true,
+      "coincident": 200000,
+      "key_pairs": 44441,
+      "key_pair_errors": 0,
+      "key_pair_qber": 0.0,
+      "expected_s": 2.82842712474619,
+      "expected_key_pair_qber": 0.0,
+      "s_within_4_sigma": true,
+      "qber_within_4_sigma": true
+    },
+    {
+      "config": {
+        "seed": 20260116,
+        "bb84": {
+          "n_pulses": 200000,
+          "p_z": 0.5,
+          "test_fraction": 0.1,
+          "k_min": 200,
+          "q_max": 0.11,
+          "eps_pe": 1e-10,
+          "eps_sec": 1e-09,
+          "eps_cor": 1e-12,
+          "ec_mode": "cascade",
+          "f_ec_ideal": 1.0,
+          "backend": "fast",
+          "cascade_passes": 4,
+          "basis_source": "numpy"
+        },
+        "channel": {
+          "length_km": 0.0,
+          "alpha_db_per_km": 0.2,
+          "e_misalign": 0,
+          "depol": 0.0,
+          "bitflip": 0.0,
+          "misalignment_theta": null,
+          "eta_det": 1.0,
+          "p_dark": 0.0
+        },
+        "attack": {
+          "kind": "ir",
+          "p": 1.0,
+          "basis_mode": "random"
+        },
+        "e91": {
+          "n_pairs": 200000,
+          "visibility": 1.0,
+          "chsh_z": 5.0,
+          "backend": "fast"
+        },
+        "monitor": {
+          "detector": "sprt",
+          "alpha": 0.001,
+          "beta": 0.001,
+          "e0": 0.02,
+          "e1": 0.1,
+          "window_size": 50,
+          "max_seconds": 3600.0,
+          "max_msgs": 1000,
+          "lockdown_after": 3,
+          "backoff_seconds": 1.0
+        },
+        "crypto": {
+          "cipher": "aes256gcm",
+          "chunk_size": 65536,
+          "max_bytes_per_key": 1073741824
+        },
+        "source": {
+          "kind": "single_photon",
+          "mu": null
+        }
+      },
+      "chsh": {
+        "counts": [
+          22315,
+          22269,
+          22066,
+          22292
+        ],
+        "correlations": [
+          0.3644633654492494,
+          -0.35892945350038175,
+          0.35312245082933014,
+          0.34774807105688144
+        ],
+        "s": 1.4242633408358427,
+        "standard_error": 0.01253353703769553
+      },
+      "chsh_lower": 1.3615956556473652,
+      "passes_chsh_gate": false,
+      "coincident": 200000,
+      "key_pairs": 44441,
+      "key_pair_errors": 10974,
+      "key_pair_qber": 0.24693413739564815,
+      "expected_s": 1.414213562373095,
+      "expected_key_pair_qber": 0.25,
+      "s_within_4_sigma": true,
+      "qber_within_4_sigma": true
+    },
+    {
+      "config": {
+        "seed": 20260116,
+        "bb84": {
+          "n_pulses": 200000,
+          "p_z": 0.5,
+          "test_fraction": 0.1,
+          "k_min": 200,
+          "q_max": 0.11,
+          "eps_pe": 1e-10,
+          "eps_sec": 1e-09,
+          "eps_cor": 1e-12,
+          "ec_mode": "cascade",
+          "f_ec_ideal": 1.0,
+          "backend": "fast",
+          "cascade_passes": 4,
+          "basis_source": "numpy"
+        },
+        "channel": {
+          "length_km": 0.0,
+          "alpha_db_per_km": 0.2,
+          "e_misalign": 0,
+          "depol": 0.0,
+          "bitflip": 0.0,
+          "misalignment_theta": null,
+          "eta_det": 1.0,
+          "p_dark": 0.0
+        },
+        "attack": {
+          "kind": "ir",
+          "p": 1.0,
+          "basis_mode": "fixed_z"
+        },
+        "e91": {
+          "n_pairs": 200000,
+          "visibility": 1.0,
+          "chsh_z": 5.0,
+          "backend": "fast"
+        },
+        "monitor": {
+          "detector": "sprt",
+          "alpha": 0.001,
+          "beta": 0.001,
+          "e0": 0.02,
+          "e1": 0.1,
+          "window_size": 50,
+          "max_seconds": 3600.0,
+          "max_msgs": 1000,
+          "lockdown_after": 3,
+          "backoff_seconds": 1.0
+        },
+        "crypto": {
+          "cipher": "aes256gcm",
+          "chunk_size": 65536,
+          "max_bytes_per_key": 1073741824
+        },
+        "source": {
+          "kind": "single_photon",
+          "mu": null
+        }
+      },
+      "chsh": {
+        "counts": [
+          22315,
+          22269,
+          22066,
+          22292
+        ],
+        "correlations": [
+          0.7107775039211293,
+          -0.7141317526606494,
+          0.009607541013323617,
+          -0.008612955320294269
+        ],
+        "s": 1.425903842274808,
+        "standard_error": 0.011591112092531271
+      },
+      "chsh_lower": 1.3679482818121518,
+      "passes_chsh_gate": false,
+      "coincident": 200000,
+      "key_pairs": 44441,
+      "key_pair_errors": 16510,
+      "key_pair_qber": 0.37150379154384466,
+      "expected_s": 1.414213562373095,
+      "expected_key_pair_qber": 0.375,
+      "s_within_4_sigma": true,
+      "qber_within_4_sigma": true
+    },
+    {
+      "config": {
+        "seed": 20260116,
+        "bb84": {
+          "n_pulses": 200000,
+          "p_z": 0.5,
+          "test_fraction": 0.1,
+          "k_min": 200,
+          "q_max": 0.11,
+          "eps_pe": 1e-10,
+          "eps_sec": 1e-09,
+          "eps_cor": 1e-12,
+          "ec_mode": "cascade",
+          "f_ec_ideal": 1.0,
+          "backend": "fast",
+          "cascade_passes": 4,
+          "basis_source": "numpy"
+        },
+        "channel": {
+          "length_km": 0.0,
+          "alpha_db_per_km": 0.2,
+          "e_misalign": 0,
+          "depol": 0.0,
+          "bitflip": 0.0,
+          "misalignment_theta": null,
+          "eta_det": 1.0,
+          "p_dark": 0.0
+        },
+        "attack": {
+          "kind": "ir",
+          "p": 1.0,
+          "basis_mode": "fixed_x"
+        },
+        "e91": {
+          "n_pairs": 200000,
+          "visibility": 1.0,
+          "chsh_z": 5.0,
+          "backend": "fast"
+        },
+        "monitor": {
+          "detector": "sprt",
+          "alpha": 0.001,
+          "beta": 0.001,
+          "e0": 0.02,
+          "e1": 0.1,
+          "window_size": 50,
+          "max_seconds": 3600.0,
+          "max_msgs": 1000,
+          "lockdown_after": 3,
+          "backoff_seconds": 1.0
+        },
+        "crypto": {
+          "cipher": "aes256gcm",
+          "chunk_size": 65536,
+          "max_bytes_per_key": 1073741824
+        },
+        "source": {
+          "kind": "single_photon",
+          "mu": null
+        }
+      },
+      "chsh": {
+        "counts": [
+          22315,
+          22269,
+          22066,
+          22292
+        ],
+        "correlations": [
+          0.002823213085368592,
+          0.004715074767614125,
+          0.707876370887338,
+          0.6960344518212811
+        ],
+        "s": 1.4020189610263736,
+        "standard_error": 0.011638709597914326
+      },
+      "chsh_lower": 1.343825413036802,
+      "passes_chsh_gate": false,
+      "coincident": 200000,
+      "key_pairs": 44441,
+      "key_pair_errors": 5453,
+      "key_pair_qber": 0.12270200940572894,
+      "expected_s": 1.4142135623730951,
+      "expected_key_pair_qber": 0.125,
+      "s_within_4_sigma": true,
+      "qber_within_4_sigma": true
+    },
+    {
+      "config": {
+        "seed": 20260116,
+        "bb84": {
+          "n_pulses": 200000,
+          "p_z": 0.5,
+          "test_fraction": 0.1,
+          "k_min": 200,
+          "q_max": 0.11,
+          "eps_pe": 1e-10,
+          "eps_sec": 1e-09,
+          "eps_cor": 1e-12,
+          "ec_mode": "cascade",
+          "f_ec_ideal": 1.0,
+          "backend": "fast",
+          "cascade_passes": 4,
+          "basis_source": "numpy"
+        },
+        "channel": {
+          "length_km": 0.0,
+          "alpha_db_per_km": 0.2,
+          "e_misalign": 0,
+          "depol": 0.0,
+          "bitflip": 0.0,
+          "misalignment_theta": null,
+          "eta_det": 1.0,
+          "p_dark": 0.0
+        },
+        "attack": {
+          "kind": "none",
+          "p": 0.0,
+          "basis_mode": "random"
+        },
+        "e91": {
+          "n_pairs": 200000,
+          "visibility": 0.6,
+          "chsh_z": 5.0,
+          "backend": "qiskit"
+        },
+        "monitor": {
+          "detector": "sprt",
+          "alpha": 0.001,
+          "beta": 0.001,
+          "e0": 0.02,
+          "e1": 0.1,
+          "window_size": 50,
+          "max_seconds": 3600.0,
+          "max_msgs": 1000,
+          "lockdown_after": 3,
+          "backoff_seconds": 1.0
+        },
+        "crypto": {
+          "cipher": "aes256gcm",
+          "chunk_size": 65536,
+          "max_bytes_per_key": 1073741824
+        },
+        "source": {
+          "kind": "single_photon",
+          "mu": null
+        }
+      },
+      "chsh": {
+        "counts": [
+          22315,
+          22269,
+          22066,
+          22292
+        ],
+        "correlations": [
+          0.4366121442975577,
+          -0.4160492163994791,
+          0.42427263663554793,
+          0.4244572043782523
+        ],
+        "s": 1.701391201710837,
+        "standard_error": 0.012138672593322148
+      },
+      "chsh_lower": 1.6406978387442264,
+      "passes_chsh_gate": false,
+      "coincident": 200000,
+      "key_pairs": 44441,
+      "key_pair_errors": 8718,
+      "key_pair_qber": 0.1961702031907473,
+      "expected_s": 1.697056274847714,
+      "expected_key_pair_qber": 0.2,
+      "s_within_4_sigma": true,
+      "qber_within_4_sigma": true
+    },
+    {
+      "config": {
+        "seed": 20260116,
+        "bb84": {
+          "n_pulses": 200000,
+          "p_z": 0.5,
+          "test_fraction": 0.1,
+          "k_min": 200,
+          "q_max": 0.11,
+          "eps_pe": 1e-10,
+          "eps_sec": 1e-09,
+          "eps_cor": 1e-12,
+          "ec_mode": "cascade",
+          "f_ec_ideal": 1.0,
+          "backend": "fast",
+          "cascade_passes": 4,
+          "basis_source": "numpy"
+        },
+        "channel": {
+          "length_km": 0.0,
+          "alpha_db_per_km": 0.2,
+          "e_misalign": 0,
+          "depol": 0.0,
+          "bitflip": 0.0,
+          "misalignment_theta": null,
+          "eta_det": 1.0,
+          "p_dark": 0.0
+        },
+        "attack": {
+          "kind": "none",
+          "p": 0.0,
+          "basis_mode": "random"
+        },
+        "e91": {
+          "n_pairs": 200000,
+          "visibility": 0.8,
+          "chsh_z": 5.0,
+          "backend": "qiskit"
+        },
+        "monitor": {
+          "detector": "sprt",
+          "alpha": 0.001,
+          "beta": 0.001,
+          "e0": 0.02,
+          "e1": 0.1,
+          "window_size": 50,
+          "max_seconds": 3600.0,
+          "max_msgs": 1000,
+          "lockdown_after": 3,
+          "backoff_seconds": 1.0
+        },
+        "crypto": {
+          "cipher": "aes256gcm",
+          "chunk_size": 65536,
+          "max_bytes_per_key": 1073741824
+        },
+        "source": {
+          "kind": "single_photon",
+          "mu": null
+        }
+      },
+      "chsh": {
+        "counts": [
+          22315,
+          22269,
+          22066,
+          22292
+        ],
+        "correlations": [
+          0.5809097019941742,
+          -0.5584893798554045,
+          0.5594126710776761,
+          0.5622644895029607
+        ],
+        "s": 2.2610762424302155,
+        "standard_error": 0.01106385111979714
+      },
+      "chsh_lower": 2.2057569868312297,
+      "passes_chsh_gate": true,
+      "coincident": 200000,
+      "key_pairs": 44441,
+      "key_pair_errors": 4240,
+      "key_pair_qber": 0.09540739407304066,
+      "expected_s": 2.2627416997969525,
+      "expected_key_pair_qber": 0.09999999999999998,
+      "s_within_4_sigma": true,
+      "qber_within_4_sigma": true
+    },
+    {
+      "config": {
+        "seed": 20260116,
+        "bb84": {
+          "n_pulses": 200000,
+          "p_z": 0.5,
+          "test_fraction": 0.1,
+          "k_min": 200,
+          "q_max": 0.11,
+          "eps_pe": 1e-10,
+          "eps_sec": 1e-09,
+          "eps_cor": 1e-12,
+          "ec_mode": "cascade",
+          "f_ec_ideal": 1.0,
+          "backend": "fast",
+          "cascade_passes": 4,
+          "basis_source": "numpy"
+        },
+        "channel": {
+          "length_km": 0.0,
+          "alpha_db_per_km": 0.2,
+          "e_misalign": 0,
+          "depol": 0.0,
+          "bitflip": 0.0,
+          "misalignment_theta": null,
+          "eta_det": 1.0,
+          "p_dark": 0.0
+        },
+        "attack": {
+          "kind": "none",
+          "p": 0.0,
+          "basis_mode": "random"
+        },
+        "e91": {
+          "n_pairs": 200000,
+          "visibility": 0.9,
+          "chsh_z": 5.0,
+          "backend": "qiskit"
+        },
+        "monitor": {
+          "detector": "sprt",
+          "alpha": 0.001,
+          "beta": 0.001,
+          "e0": 0.02,
+          "e1": 0.1,
+          "window_size": 50,
+          "max_seconds": 3600.0,
+          "max_msgs": 1000,
+          "lockdown_after": 3,
+          "backoff_seconds": 1.0
+        },
+        "crypto": {
+          "cipher": "aes256gcm",
+          "chunk_size": 65536,
+          "max_bytes_per_key": 1073741824
+        },
+        "source": {
+          "kind": "single_photon",
+          "mu": null
+        }
+      },
+      "chsh": {
+        "counts": [
+          22315,
+          22269,
+          22066,
+          22292
+        ],
+        "correlations": [
+          0.6547613712749272,
+          -0.6305177601149581,
+          0.6310160427807487,
+          0.6331419343262157
+        ],
+        "s": 2.54943710849685,
+        "standard_error": 0.010334850562542621
+      },
+      "chsh_lower": 2.4977628556841367,
+      "passes_chsh_gate": true,
+      "coincident": 200000,
+      "key_pairs": 44441,
+      "key_pair_errors": 2162,
+      "key_pair_qber": 0.048648770279696676,
+      "expected_s": 2.5455844122715714,
+      "expected_key_pair_qber": 0.04999999999999999,
+      "s_within_4_sigma": true,
+      "qber_within_4_sigma": true
+    },
+    {
+      "config": {
+        "seed": 20260116,
+        "bb84": {
+          "n_pulses": 200000,
+          "p_z": 0.5,
+          "test_fraction": 0.1,
+          "k_min": 200,
+          "q_max": 0.11,
+          "eps_pe": 1e-10,
+          "eps_sec": 1e-09,
+          "eps_cor": 1e-12,
+          "ec_mode": "cascade",
+          "f_ec_ideal": 1.0,
+          "backend": "fast",
+          "cascade_passes": 4,
+          "basis_source": "numpy"
+        },
+        "channel": {
+          "length_km": 0.0,
+          "alpha_db_per_km": 0.2,
+          "e_misalign": 0,
+          "depol": 0.0,
+          "bitflip": 0.0,
+          "misalignment_theta": null,
+          "eta_det": 1.0,
+          "p_dark": 0.0
+        },
+        "attack": {
+          "kind": "none",
+          "p": 0.0,
+          "basis_mode": "random"
+        },
+        "e91": {
+          "n_pairs": 200000,
+          "visibility": 1.0,
+          "chsh_z": 5.0,
+          "backend": "qiskit"
+        },
+        "monitor": {
+          "detector": "sprt",
+          "alpha": 0.001,
+          "beta": 0.001,
+          "e0": 0.02,
+          "e1": 0.1,
+          "window_size": 50,
+          "max_seconds": 3600.0,
+          "max_msgs": 1000,
+          "lockdown_after": 3,
+          "backoff_seconds": 1.0
+        },
+        "crypto": {
+          "cipher": "aes256gcm",
+          "chunk_size": 65536,
+          "max_bytes_per_key": 1073741824
+        },
+        "source": {
+          "kind": "single_photon",
+          "mu": null
+        }
+      },
+      "chsh": {
+        "counts": [
+          22315,
+          22269,
+          22066,
+          22292
+        ],
+        "correlations": [
+          0.7207259690790948,
+          -0.7020072746867843,
+          0.7013504939726276,
+          0.7052754351336803
+        ],
+        "s": 2.829359172872187,
+        "standard_error": 0.009480865066989854
+      },
+      "chsh_lower": 2.7819548475372375,
+      "passes_chsh_gate": true,
+      "coincident": 200000,
+      "key_pairs": 44441,
+      "key_pair_errors": 0,
+      "key_pair_qber": 0.0,
+      "expected_s": 2.82842712474619,
+      "expected_key_pair_qber": 0.0,
+      "s_within_4_sigma": true,
+      "qber_within_4_sigma": true
+    },
+    {
+      "config": {
+        "seed": 20260116,
+        "bb84": {
+          "n_pulses": 200000,
+          "p_z": 0.5,
+          "test_fraction": 0.1,
+          "k_min": 200,
+          "q_max": 0.11,
+          "eps_pe": 1e-10,
+          "eps_sec": 1e-09,
+          "eps_cor": 1e-12,
+          "ec_mode": "cascade",
+          "f_ec_ideal": 1.0,
+          "backend": "fast",
+          "cascade_passes": 4,
+          "basis_source": "numpy"
+        },
+        "channel": {
+          "length_km": 0.0,
+          "alpha_db_per_km": 0.2,
+          "e_misalign": 0,
+          "depol": 0.0,
+          "bitflip": 0.0,
+          "misalignment_theta": null,
+          "eta_det": 1.0,
+          "p_dark": 0.0
+        },
+        "attack": {
+          "kind": "ir",
+          "p": 1.0,
+          "basis_mode": "random"
+        },
+        "e91": {
+          "n_pairs": 200000,
+          "visibility": 1.0,
+          "chsh_z": 5.0,
+          "backend": "qiskit"
+        },
+        "monitor": {
+          "detector": "sprt",
+          "alpha": 0.001,
+          "beta": 0.001,
+          "e0": 0.02,
+          "e1": 0.1,
+          "window_size": 50,
+          "max_seconds": 3600.0,
+          "max_msgs": 1000,
+          "lockdown_after": 3,
+          "backoff_seconds": 1.0
+        },
+        "crypto": {
+          "cipher": "aes256gcm",
+          "chunk_size": 65536,
+          "max_bytes_per_key": 1073741824
+        },
+        "source": {
+          "kind": "single_photon",
+          "mu": null
+        }
+      },
+      "chsh": {
+        "counts": [
+          22315,
+          22269,
+          22066,
+          22292
+        ],
+        "correlations": [
+          0.35854806184181043,
+          -0.3532713637792446,
+          0.3543913713405239,
+          0.3560918715234165
+        ],
+        "s": 1.4223026684849953,
+        "standard_error": 0.012536268825387439
+      },
+      "chsh_lower": 1.3596213243580582,
+      "passes_chsh_gate": false,
+      "coincident": 200000,
+      "key_pairs": 44441,
+      "key_pair_errors": 11060,
+      "key_pair_qber": 0.24886928736977115,
+      "expected_s": 1.414213562373095,
+      "expected_key_pair_qber": 0.25,
+      "s_within_4_sigma": true,
+      "qber_within_4_sigma": true
+    },
+    {
+      "config": {
+        "seed": 20260116,
+        "bb84": {
+          "n_pulses": 200000,
+          "p_z": 0.5,
+          "test_fraction": 0.1,
+          "k_min": 200,
+          "q_max": 0.11,
+          "eps_pe": 1e-10,
+          "eps_sec": 1e-09,
+          "eps_cor": 1e-12,
+          "ec_mode": "cascade",
+          "f_ec_ideal": 1.0,
+          "backend": "fast",
+          "cascade_passes": 4,
+          "basis_source": "numpy"
+        },
+        "channel": {
+          "length_km": 0.0,
+          "alpha_db_per_km": 0.2,
+          "e_misalign": 0,
+          "depol": 0.0,
+          "bitflip": 0.0,
+          "misalignment_theta": null,
+          "eta_det": 1.0,
+          "p_dark": 0.0
+        },
+        "attack": {
+          "kind": "ir",
+          "p": 1.0,
+          "basis_mode": "fixed_z"
+        },
+        "e91": {
+          "n_pairs": 200000,
+          "visibility": 1.0,
+          "chsh_z": 5.0,
+          "backend": "qiskit"
+        },
+        "monitor": {
+          "detector": "sprt",
+          "alpha": 0.001,
+          "beta": 0.001,
+          "e0": 0.02,
+          "e1": 0.1,
+          "window_size": 50,
+          "max_seconds": 3600.0,
+          "max_msgs": 1000,
+          "lockdown_after": 3,
+          "backoff_seconds": 1.0
+        },
+        "crypto": {
+          "cipher": "aes256gcm",
+          "chunk_size": 65536,
+          "max_bytes_per_key": 1073741824
+        },
+        "source": {
+          "kind": "single_photon",
+          "mu": null
+        }
+      },
+      "chsh": {
+        "counts": [
+          22315,
+          22269,
+          22066,
+          22292
+        ],
+        "correlations": [
+          0.7069235939950707,
+          -0.7072163096681485,
+          0.0,
+          -0.0027812668221782744
+        ],
+        "s": 1.411358636841041,
+        "standard_error": 0.011620985573253403
+      },
+      "chsh_lower": 1.3532537089747738,
+      "passes_chsh_gate": false,
+      "coincident": 200000,
+      "key_pairs": 44441,
+      "key_pair_errors": 16813,
+      "key_pair_qber": 0.3783218199410454,
+      "expected_s": 1.414213562373095,
+      "expected_key_pair_qber": 0.375,
+      "s_within_4_sigma": true,
+      "qber_within_4_sigma": true
+    },
+    {
+      "config": {
+        "seed": 20260116,
+        "bb84": {
+          "n_pulses": 200000,
+          "p_z": 0.5,
+          "test_fraction": 0.1,
+          "k_min": 200,
+          "q_max": 0.11,
+          "eps_pe": 1e-10,
+          "eps_sec": 1e-09,
+          "eps_cor": 1e-12,
+          "ec_mode": "cascade",
+          "f_ec_ideal": 1.0,
+          "backend": "fast",
+          "cascade_passes": 4,
+          "basis_source": "numpy"
+        },
+        "channel": {
+          "length_km": 0.0,
+          "alpha_db_per_km": 0.2,
+          "e_misalign": 0,
+          "depol": 0.0,
+          "bitflip": 0.0,
+          "misalignment_theta": null,
+          "eta_det": 1.0,
+          "p_dark": 0.0
+        },
+        "attack": {
+          "kind": "ir",
+          "p": 1.0,
+          "basis_mode": "fixed_x"
+        },
+        "e91": {
+          "n_pairs": 200000,
+          "visibility": 1.0,
+          "chsh_z": 5.0,
+          "backend": "qiskit"
+        },
+        "monitor": {
+          "detector": "sprt",
+          "alpha": 0.001,
+          "beta": 0.001,
+          "e0": 0.02,
+          "e1": 0.1,
+          "window_size": 50,
+          "max_seconds": 3600.0,
+          "max_msgs": 1000,
+          "lockdown_after": 3,
+          "backoff_seconds": 1.0
+        },
+        "crypto": {
+          "cipher": "aes256gcm",
+          "chunk_size": 65536,
+          "max_bytes_per_key": 1073741824
+        },
+        "source": {
+          "kind": "single_photon",
+          "mu": null
+        }
+      },
+      "chsh": {
+        "counts": [
+          22315,
+          22269,
+          22066,
+          22292
+        ],
+        "correlations": [
+          -0.00013443871835083776,
+          -0.007139970362387116,
+          0.7182996465150004,
+          0.7119145881930737
+        ],
+        "s": 1.4372197663521105,
+        "standard_error": 0.011566412200993484
+      },
+      "chsh_lower": 1.379387705347143,
+      "passes_chsh_gate": false,
+      "coincident": 200000,
+      "key_pairs": 44441,
+      "key_pair_errors": 5739,
+      "key_pair_qber": 0.12913750815688216,
+      "expected_s": 1.4142135623730951,
+      "expected_key_pair_qber": 0.125,
+      "s_within_4_sigma": true,
+      "qber_within_4_sigma": true
+    }
+  ]
+}

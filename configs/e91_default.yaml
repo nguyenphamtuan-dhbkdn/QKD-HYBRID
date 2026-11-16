@@ -1,0 +1,5 @@
+e91:
+  n_pairs: 200000
+  visibility: 1.0
+  chsh_z: 5.0
+  backend: fast

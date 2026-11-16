@@ -122,6 +122,7 @@ class BB84Config:
     f_ec_ideal: float = 1.0
     backend: Literal["fast", "qiskit"] = "fast"
     cascade_passes: int = 4
+    basis_source: Literal["numpy", "qrng"] = "numpy"
 
     def __post_init__(self) -> None:
         _integer("bb84.n_pulses", self.n_pulses, 1)
@@ -140,20 +141,25 @@ class BB84Config:
         if self.f_ec_ideal < 1:
             raise ValueError("bb84.f_ec_ideal must be >= 1")
         _choice("bb84.backend", self.backend, ("fast", "qiskit"))
+        _choice("bb84.basis_source", self.basis_source, ("numpy", "qrng"))
+        if self.basis_source == "qrng" and self.p_z != 0.5:
+            raise ValueError("bb84.basis_source 'qrng' requires p_z = 0.5")
 
 
 @dataclass(frozen=True)
 class E91Config:
-    """E91 settings reserved in the shared configuration schema."""
+    """Entangled-pair count, Werner visibility, and CHSH acceptance margin."""
 
     n_pairs: int = 200_000
     visibility: float = 1.0
     chsh_z: float = 5.0
+    backend: Literal["fast", "qiskit"] = "fast"
 
     def __post_init__(self) -> None:
         _integer("e91.n_pairs", self.n_pairs, 1)
         _probability("e91.visibility", self.visibility)
         _nonnegative("e91.chsh_z", self.chsh_z)
+        _choice("e91.backend", self.backend, ("fast", "qiskit"))
 
 
 @dataclass(frozen=True)

@@ -1,4 +1,4 @@
-"""Key material and abort evidence returned by a BB84 simulation."""
+"""Key material and abort evidence returned by a QKD simulation."""
 
 from dataclasses import dataclass, field
 from datetime import datetime
@@ -17,6 +17,8 @@ AbortReason = Literal[
     "monitor alarm",
     "classical authentication failed",
     "insufficient key for authentication refresh",
+    "insufficient CHSH statistics",
+    "CHSH violation below margin",
 ]
 
 

@@ -14,3 +14,7 @@ dist/
 !/results/bb84_backend_scaling.json
 !/results/bb84_postprocessing.json
 !/results/e12_mitm.json
+!/results/e91_acceptance.json
+!/results/randomness_acceptance.json
+!/results/e15_quantum_security.csv
+!/results/e15_quantum_security.json

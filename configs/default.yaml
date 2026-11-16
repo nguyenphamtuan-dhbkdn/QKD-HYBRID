@@ -11,6 +11,7 @@ bb84:
   ec_mode: cascade
   cascade_passes: 4
   backend: fast
+  basis_source: numpy
 channel:
   length_km: 0
   alpha_db_per_km: 0.2
@@ -26,6 +27,7 @@ e91:
   n_pairs: 200000
   visibility: 1.0
   chsh_z: 5.0
+  backend: fast
 monitor:
   detector: sprt
   alpha: 1.0e-3

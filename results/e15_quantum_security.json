@@ -1,0 +1,20 @@
+{
+  "git_commit": "9e7c872b532b7ad09ccdd2a818d19b0c76eaa14f",
+  "git_dirty": true,
+  "python": "3.11.18",
+  "library_versions": {
+    "numpy": "2.2.6",
+    "scipy": "1.15.3"
+  },
+  "config": {
+    "primitives_and_key_sizes": {
+      "AES-128": 128,
+      "AES-256": 256,
+      "ChaCha20": 256,
+      "RSA-2048": 2048,
+      "ECC P-256": 256
+    }
+  },
+  "seed": null,
+  "classical_asymmetric_strength_source": "NIST SP 800-57 Part 1 Rev. 5 Table 2"
+}
