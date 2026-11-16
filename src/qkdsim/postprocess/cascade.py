@@ -8,6 +8,7 @@ import numpy as np
 from numpy.random import Generator
 
 from qkdsim.analysis.theory import h2
+from qkdsim.auth.channel import ClassicalLink
 from qkdsim.physics.states import BitArray, CountArray
 from qkdsim.postprocess._bits import validate_key_pair
 
@@ -30,14 +31,23 @@ class _Pass:
     odd_blocks: BitArray
     differences: BitArray
     block_size: int
+    alice_bits: BitArray | None
 
-    def locate_error(self, block: int) -> tuple[int, int]:
+    def locate_error(
+        self,
+        block: int,
+        channel: ClassicalLink | None,
+    ) -> tuple[int, int]:
         """Bisect a known odd block, disclosing one parity per split."""
         left = block * self.block_size
         right = min(left + self.block_size, self.differences.size)
         disclosed = 0
         while right - left > 1:
             mid = (left + right) // 2
+            if channel is not None:
+                assert self.alice_bits is not None
+                parity = int(np.bitwise_xor.reduce(self.alice_bits[left:mid]))
+                channel.exchange("alice", "cascade_split_parity", bytes((parity,)))
             # Comparing the parties' parities is XOR over their differences.
             if np.bitwise_xor.reduce(self.differences[left:mid]):
                 right = mid
@@ -48,7 +58,13 @@ class _Pass:
 
 
 def cascade_reconcile(
-    key_a: BitArray, key_b: BitArray, q_est: float, rng: Generator, *, passes: int = 4
+    key_a: BitArray,
+    key_b: BitArray,
+    q_est: float,
+    rng: Generator,
+    *,
+    passes: int = 4,
+    channel: ClassicalLink | None = None,
 ) -> CascadeResult:
     """Reconcile using k_1=max(2,ceil(0.73/Q_est)) and k_i=2*k_(i-1).
 
@@ -81,7 +97,21 @@ def cascade_reconcile(
         starts = np.arange(0, n, block_size)
         shuffled = differences[order]
         odd = np.bitwise_xor.reduceat(shuffled, starts)
-        opened.append(_Pass(order, positions, odd, shuffled, block_size))
+        alice_shuffled = None
+        if channel is not None:
+            channel.exchange(
+                "alice",
+                "cascade_permutation",
+                order.astype(">u8").tobytes(),
+            )
+            alice_shuffled = key_a[order]
+            parities = np.bitwise_xor.reduceat(alice_shuffled, starts)
+            channel.exchange(
+                "alice", "cascade_block_parities", np.packbits(parities).tobytes()
+            )
+        opened.append(
+            _Pass(order, positions, odd, shuffled, block_size, alice_shuffled)
+        )
         disclosed += starts.size
 
         # Prefer the smaller blocks of earlier passes during cascade-back.
@@ -91,7 +121,7 @@ def cascade_reconcile(
             current = opened[index]
             if not current.odd_blocks[block]:
                 continue
-            bit, queries = current.locate_error(block)
+            bit, queries = current.locate_error(block, channel)
             bob[bit] ^= 1
             differences[bit] ^= 1
             disclosed += queries

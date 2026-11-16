@@ -1,0 +1,269 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:qkdsim:monitor:event:1",
+  "title": "BB84 monitoring transition event",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "timestamp",
+    "session_id",
+    "previous_state",
+    "state",
+    "alert",
+    "reason",
+    "counters",
+    "metrics",
+    "detector"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "session_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "previous_state": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/state"
+        }
+      ]
+    },
+    "state": {
+      "$ref": "#/$defs/state"
+    },
+    "alert": {
+      "enum": [
+        "OK",
+        "WARN",
+        "ABORT",
+        "LOCKDOWN"
+      ]
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "counters": {
+      "type": "object",
+      "required": [
+        "sent",
+        "detected",
+        "sifted",
+        "double_clicks",
+        "compared",
+        "errors"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "sent": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "detected": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "sifted": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "double_clicks": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "compared": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "errors": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "required": [
+        "detection_rate",
+        "sift_rate",
+        "double_click_rate",
+        "qber",
+        "qber_upper",
+        "qber_z",
+        "qber_x",
+        "clopper_pearson",
+        "wilson"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "detection_rate": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "sift_rate": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "double_click_rate": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "qber": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "qber_upper": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "qber_z": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "qber_x": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "clopper_pearson": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          }
+        },
+        "wilson": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          }
+        }
+      }
+    },
+    "detector": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "required": [
+            "detector",
+            "outcome",
+            "compared",
+            "statistic",
+            "upper",
+            "lower"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "detector": {
+              "enum": [
+                "threshold",
+                "ci",
+                "sprt",
+                "cusum",
+                "joint"
+              ]
+            },
+            "outcome": {
+              "enum": [
+                "alarm",
+                "clear",
+                "inconclusive"
+              ]
+            },
+            "compared": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "statistic": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "upper": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "lower": {
+              "type": [
+                "number",
+                "null"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  },
+  "$defs": {
+    "state": {
+      "enum": [
+        "INIT",
+        "QUANTUM_TX",
+        "BASIS_RECONCILIATION",
+        "PARAMETER_ESTIMATION",
+        "ERROR_CORRECTION",
+        "VERIFICATION",
+        "PRIVACY_AMPLIFICATION",
+        "KEY_READY",
+        "KEY_IN_USE",
+        "ABORT"
+      ]
+    }
+  }
+}

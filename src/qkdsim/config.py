@@ -158,13 +158,18 @@ class E91Config:
 
 @dataclass(frozen=True)
 class MonitorConfig:
-    """Monitor settings reserved in the shared configuration schema."""
+    """Detector, observation window, and session policy settings."""
 
     detector: Literal["threshold", "ci", "sprt", "cusum", "joint"] = "sprt"
     alpha: float = 1e-3
     beta: float = 1e-3
     e0: float = 0.02
     e1: float = 0.10
+    window_size: int = 50
+    max_seconds: float = 3600.0
+    max_msgs: int = 1000
+    lockdown_after: int = 3
+    backoff_seconds: float = 1.0
 
     def __post_init__(self) -> None:
         modes = ("threshold", "ci", "sprt", "cusum", "joint")
@@ -175,6 +180,13 @@ class MonitorConfig:
         _probability("monitor.e1", self.e1)
         if self.e0 >= self.e1:
             raise ValueError("monitor.e0 must be less than monitor.e1")
+        if self.alpha + self.beta >= 1:
+            raise ValueError("monitor.alpha plus beta must be less than 1")
+        _integer("monitor.window_size", self.window_size, 1)
+        _nonnegative("monitor.max_seconds", self.max_seconds)
+        _integer("monitor.max_msgs", self.max_msgs, 1)
+        _integer("monitor.lockdown_after", self.lockdown_after, 1)
+        _nonnegative("monitor.backoff_seconds", self.backoff_seconds)
 
 
 @dataclass(frozen=True)

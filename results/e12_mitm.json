@@ -1,0 +1,95 @@
+{
+  "config": {
+    "seed": 20260116,
+    "bb84": {
+      "n_pulses": 4096,
+      "p_z": 0.5,
+      "test_fraction": 0.25,
+      "k_min": 200,
+      "q_max": 0.11,
+      "eps_pe": 0.01,
+      "eps_sec": 1e-09,
+      "eps_cor": 1e-12,
+      "ec_mode": "cascade",
+      "f_ec_ideal": 1.0,
+      "backend": "fast",
+      "cascade_passes": 4
+    },
+    "channel": {
+      "length_km": 0.0,
+      "alpha_db_per_km": 0.2,
+      "e_misalign": 0.0,
+      "depol": 0.0,
+      "bitflip": 0.0,
+      "misalignment_theta": null,
+      "eta_det": 1.0,
+      "p_dark": 0.0
+    },
+    "attack": {
+      "kind": "none",
+      "p": 0.0,
+      "basis_mode": "random"
+    },
+    "e91": {
+      "n_pairs": 200000,
+      "visibility": 1.0,
+      "chsh_z": 5.0
+    },
+    "monitor": {
+      "detector": "sprt",
+      "alpha": 0.001,
+      "beta": 0.001,
+      "e0": 0.02,
+      "e1": 0.1,
+      "window_size": 50,
+      "max_seconds": 3600.0,
+      "max_msgs": 1000,
+      "lockdown_after": 3,
+      "backoff_seconds": 1.0
+    },
+    "crypto": {
+      "cipher": "aes256gcm",
+      "chunk_size": 65536,
+      "max_bytes_per_key": 1073741824
+    },
+    "source": {
+      "kind": "single_photon",
+      "mu": null
+    }
+  },
+  "seed": 20260116,
+  "git_commit": "cdadc43c8d9439dcb099f03fae3b288c3f706213",
+  "git_dirty": true,
+  "python": "3.11.18",
+  "library_versions": {
+    "numpy": "2.2.6",
+    "scipy": "1.15.3"
+  },
+  "auth_key_and_pa_seed_source": "OS entropy",
+  "modes": {
+    "unauthenticated": {
+      "trials": 1000,
+      "eve_successes": 1000,
+      "eve_success_rate": 1.0,
+      "eve_success_clopper_pearson": [
+        0.9963179161031344,
+        1.0
+      ],
+      "alice_keys_known_to_eve": 1000,
+      "bob_keys_known_to_eve": 1000,
+      "both_links_rejected_bad_tags": 0
+    },
+    "authenticated": {
+      "trials": 1000,
+      "eve_successes": 0,
+      "eve_success_rate": 0.0,
+      "eve_success_clopper_pearson": [
+        0.0,
+        0.003682083896865671
+      ],
+      "alice_keys_known_to_eve": 0,
+      "bob_keys_known_to_eve": 0,
+      "both_links_rejected_bad_tags": 1000
+    }
+  }
+}

@@ -13,3 +13,4 @@ dist/
 /results/*
 !/results/bb84_backend_scaling.json
 !/results/bb84_postprocessing.json
+!/results/e12_mitm.json

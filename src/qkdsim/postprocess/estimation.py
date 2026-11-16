@@ -9,6 +9,7 @@ import numpy as np
 from numpy.random import Generator
 
 from qkdsim.analysis.stats import Interval, clopper_pearson, wilson_interval
+from qkdsim.auth.channel import ClassicalLink
 from qkdsim.config import BB84Config
 from qkdsim.physics.states import BitArray, CountArray
 from qkdsim.postprocess.sifting import SiftedKey
@@ -64,7 +65,11 @@ def hoeffding_upper(errors: int, sample_size: int, eps_pe: float) -> float:
 
 
 def estimate_parameters(
-    key: SiftedKey, config: BB84Config, rng: Generator
+    key: SiftedKey,
+    config: BB84Config,
+    rng: Generator,
+    *,
+    channel: ClassicalLink | None = None,
 ) -> ParameterEstimate | ParameterAbort:
     """Compare ceil(f_test*n_sift) bits and discard them from both sequences."""
     sample_size = math.ceil(Fraction(str(config.test_fraction)) * key.sifted)
@@ -72,9 +77,15 @@ def estimate_parameters(
         return ParameterAbort("insufficient statistics", sample_size)
 
     sampled = np.sort(rng.choice(key.sifted, size=sample_size, replace=False))
-    errors = int(np.count_nonzero(key.alice_bits[sampled] != key.bob_bits[sampled]))
+    indices = key.pulse_indices[sampled]
+    alice, bob = key.alice_bits[sampled], key.bob_bits[sampled]
+    if channel is not None:
+        channel.exchange("alice", "test_indices", indices.astype(">u8").tobytes())
+        channel.exchange("alice", "test_alice", np.packbits(alice).tobytes())
+        channel.exchange("bob", "test_bob", np.packbits(bob).tobytes())
+    errors = int(np.count_nonzero(alice != bob))
     stats = QBERStatistics(
-        sample_indices=key.pulse_indices[sampled],
+        sample_indices=indices,
         errors=errors,
         q_est=errors / sample_size,
         q_ub=hoeffding_upper(errors, sample_size, config.eps_pe),

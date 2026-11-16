@@ -5,6 +5,7 @@ from dataclasses import dataclass
 
 import numpy as np
 
+from qkdsim.auth.channel import ClassicalLink
 from qkdsim.physics.states import BitArray
 from qkdsim.postprocess._bits import validate_bits, validate_key_pair
 
@@ -48,11 +49,23 @@ def verification_tag(bits: BitArray, seed: int) -> bytes:
     return value.to_bytes(_TAG_BYTES, "big")
 
 
-def verify_keys(key_a: BitArray, key_b: BitArray) -> VerificationResult:
+def verify_keys(
+    key_a: BitArray,
+    key_b: BitArray,
+    *,
+    channel: ClassicalLink | None = None,
+) -> VerificationResult:
     """Compare tags under a fresh, uniformly random shared field element."""
     validate_key_pair(key_a, key_b)
     seed = secrets.randbelow(_PRIME)
+    if channel is not None:
+        encoded = channel.exchange(
+            "alice", "verification_seed", seed.to_bytes(8, "big")
+        )
+        seed = int.from_bytes(encoded, "big")
     alice_tag = verification_tag(key_a, seed)
+    if channel is not None:
+        alice_tag = channel.exchange("alice", "verification_tag", alice_tag)
     bob_tag = verification_tag(key_b, seed)
     return VerificationResult(
         secrets.compare_digest(alice_tag, bob_tag), 8 * _TAG_BYTES

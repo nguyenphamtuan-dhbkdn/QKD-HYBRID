@@ -80,3 +80,64 @@
   cấu hình, seed, phiên bản thư viện, trạng thái Git và từng lượt đo FFT.
   Tỷ lệ đồng bộ là kết quả quan sát ở kích thước khóa trong cấu hình đo.
   [Kết quả đo](../results/bb84_postprocessing.json)
+
+## M4
+
+- Bộ giám sát chỉ so sánh các bit đã công khai, sắp theo thứ tự xung.
+  Cửa sổ dùng số bit công khai có thể cấu hình. Nhật ký lưu tỷ lệ phát hiện
+  trên số xung gửi, tỷ lệ sàng lọc trên số lượt phát hiện, tỷ lệ nhấp kép
+  trên số xung gửi và QBER theo từng cơ sở. Mỗi phiên có thư mục riêng khi
+  bật ghi tệp. Phiên dừng ghi `evidence.json` cùng biểu đồ QBER theo cửa sổ
+  và khoảng Clopper–Pearson. CHSH cần kết quả đo E91 ở M7.
+- Kiểm định CI dùng đuôi nhị thức một phía, tương đương so cận dưới
+  Clopper–Pearson với QBER nền. SPRT kết thúc khi chạm một trong hai cận
+  Wald và báo số bit công khai đến điểm quyết định. CUSUM cộng log-tỷ số hợp
+  lý theo cửa sổ và trở về không khi tổng âm. Với W cửa sổ dự kiến, mỗi
+  điểm bắt đầu được cấp ngân sách alpha/W. Kiểm định chung chia alpha
+  theo Bonferroni cho đuôi QBER một phía và tỷ lệ phát hiện hai phía. Các
+  ngân sách thống kê giả định nền đã biết và quan sát theo mô hình nhị thức.
+- Ngưỡng cố định vẫn dùng cận Hoeffding của giao thức. Kiểm thử Monte
+  Carlo dùng cỡ mẫu mặc định điển hình cho điểm nền của bộ phát hiện
+  ngưỡng, vì ở cỡ mẫu tối thiểu ngay cả mẫu không có lỗi cũng có thể
+  vượt ngưỡng. Cận Hoeffding luôn được áp dụng khi tạo khóa, kể cả khi bộ
+  giám sát đang chọn một kiểm định khác.
+- Lệnh `calibrate` tắt Eve, dùng một luồng ngẫu nhiên riêng dẫn xuất từ seed
+  cấu hình và đo đếm tối bằng cổng trống. Phiên có thể đọc số đếm từ tệp
+  hiệu chuẩn để tính nền QBER và tỷ lệ phát hiện. Khi chưa có tệp, dùng
+  `monitor.e0` và xác suất có ít nhất một lượt nhấp theo mô hình kênh đã
+  cấu hình. Ngân sách báo động không tính thêm sai số ước lượng từ mẫu
+  hiệu chuẩn.
+- Báo WARN khi đuôi QBER nhỏ hơn căn bậc hai của alpha và bộ phát hiện
+  không phát báo động. WARN yêu cầu đổi khóa trước lần gửi tiếp theo.
+  Lần gửi được kiểm tra theo mức sử dụng sau khi cộng thông điệp dự kiến.
+  Thời gian chờ sau phiên dừng tăng tuyến tính theo số lần dừng liên tiếp.
+  Phiên tạo được khóa xóa chuỗi dừng, còn khóa hệ thống cần thao tác đặt
+  lại của người vận hành.
+
+## M5
+
+- HMAC-SHA256 xác thực khung nhị phân gồm mã phiên, chiều gửi, bộ đếm,
+  loại thông điệp, độ dài và nội dung. Mỗi chiều có bộ đếm riêng bắt đầu
+  từ không. Bên nhận kiểm tra thẻ trước khi chấp nhận đúng số thứ tự kế
+  tiếp. Các bước trao đổi công khai được kiểm tra trước khi mô phỏng dùng
+  thông tin để tạo khóa.
+- Cascade truyền hoán vị công khai đã sinh từ bộ sinh của phiên và các
+  bit chẵn lẻ qua kênh xác thực. Cách biểu diễn hoán vị này giữ nguyên
+  chuỗi mô phỏng và cho phép hai phía dùng cùng thứ tự mà không cần chia
+  sẻ trạng thái của bộ sinh.
+- `AuthenticationPool` giữ khóa chia sẻ trước cho các lần chạy liên tiếp.
+  Phiên thành công dành tiền tố khóa QKD đủ độ dài khóa HMAC cho lần sau.
+  Độ dài còn lại và tỷ lệ bit hữu dụng trên số xung gửi được báo riêng.
+  Phiên dừng giữ khóa HMAC hiện tại để thử lại với mã phiên mới. Đây là
+  mô hình quản lý khóa HMAC, với giả định an toàn tính toán.
+- Lệnh `monitor` mô phỏng hai bên đã chia sẻ khóa ban đầu từ hệ điều hành.
+  Trong API Python, truyền cùng một `AuthenticationPool` qua các phiên khi
+  cần theo dõi việc làm mới khóa xác thực. Khi không truyền pool, API mô
+  phỏng các trao đổi nội bộ theo giả định chuyển đúng thông điệp.
+- E12 chạy hai liên kết riêng, với Eve đóng vai Bob trên liên kết của Alice
+  và vai Alice trên liên kết của Bob. Phép so sánh thực hiện trên hai đầu ra
+  khuếch đại riêng tư của từng liên kết. Khi bật xác thực, Eve thay thông
+  điệp công khai bằng khung được ký với khóa do Eve tạo. Kết quả chỉ chứa
+  số lần thành công và từ chối. Khóa từ mô phỏng có seed dễ dự đoán vẫn
+  không an toàn để sử dụng trong thực tế.
+  [Kết quả E12](../results/e12_mitm.json)

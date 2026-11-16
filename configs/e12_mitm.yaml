@@ -1,0 +1,7 @@
+seed: 20260116
+bb84:
+  n_pulses: 4096
+  test_fraction: 0.25
+  eps_pe: 0.01
+channel:
+  e_misalign: 0.0

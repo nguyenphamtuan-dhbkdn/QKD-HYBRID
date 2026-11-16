@@ -1,19 +1,31 @@
 """Run the simulator outside the BB84 participants' information boundary."""
 
+from collections.abc import Callable
+from contextlib import AbstractContextManager, nullcontext
+from dataclasses import replace
 from datetime import UTC, datetime
 from uuid import uuid4
 
 import numpy as np
-from numpy.random import Generator
+from numpy.random import Generator, SeedSequence, default_rng
 
 from qkdsim.attacks.intercept_resend import GroundTruth, InterceptResend
-from qkdsim.config import SessionConfig
+from qkdsim.auth.channel import AUTH_BITS, AuthenticationError, ClassicalLink, Transport
+from qkdsim.auth.pool import AuthenticationPool
+from qkdsim.config import AttackConfig, SessionConfig
+from qkdsim.monitor.calibration import Calibration
+from qkdsim.monitor.metrics import empty_gate_clicks
+from qkdsim.monitor.session import MonitoredSession, State
 from qkdsim.physics.channel import attenuate
 from qkdsim.postprocess.cascade import cascade_reconcile, perfect_ec
-from qkdsim.postprocess.estimation import ParameterAbort, estimate_parameters
+from qkdsim.postprocess.estimation import (
+    ParameterAbort,
+    QBERStatistics,
+    estimate_parameters,
+)
 from qkdsim.postprocess.keylength import secret_key_length
 from qkdsim.postprocess.privacy_amp import random_toeplitz_seed, toeplitz_hash_fft
-from qkdsim.postprocess.result import AbortEvidence, FinalKey
+from qkdsim.postprocess.result import AbortEvidence, AbortReason, FinalKey, LinkKeys
 from qkdsim.postprocess.sifting import sift
 from qkdsim.postprocess.verification import verification_collision_bound, verify_keys
 from qkdsim.protocols.bb84 import BB84Transmission, measure_bb84, prepare_bb84
@@ -47,45 +59,158 @@ def simulate_bb84(
     return measure_bb84(config, sent, received, rng), truth
 
 
+def calibrate_bb84(
+    config: SessionConfig,
+    *,
+    pulses: int = 100_000,
+    empty_gates: int = 100_000,
+) -> Calibration:
+    """Compare all sifted bits in a dedicated honest-channel pilot."""
+    pilot = replace(
+        config,
+        bb84=replace(config.bb84, n_pulses=pulses),
+        attack=AttackConfig(),
+    )
+    rng = default_rng(SeedSequence(pilot.seed, spawn_key=(1,)))
+    observed, _ = simulate_bb84(pilot, rng)
+    key = sift(observed)
+    return Calibration(
+        key.sent,
+        key.detected,
+        key.sifted,
+        int(np.count_nonzero(key.alice_bits != key.bob_bits)),
+        empty_gates,
+        empty_gate_clicks(config.channel, empty_gates, rng),
+    )
+
+
 def run_bb84_session(
-    config: SessionConfig, rng: Generator | None = None
+    config: SessionConfig,
+    rng: Generator | None = None,
+    *,
+    session: MonitoredSession | None = None,
+    authentication: AuthenticationPool | None = None,
+    transport: Transport | None = None,
 ) -> FinalKey | AbortEvidence:
     """Simulate BB84 through reconciliation, verification, and key extraction.
 
-    The classical exchanges are local and assume honest delivery. As this
-    simulation uses a predictable RNG for the physics, its keys are insecure.
+    Supply a pre-shared authentication pool for an HMAC-protected transcript.
+    The simulation uses a predictable RNG for the physics, so its keys are insecure.
     """
+    result = run_bb84_link(
+        config,
+        rng,
+        session=session,
+        authentication=authentication,
+        transport=transport,
+    )
+    return result.alice if isinstance(result, LinkKeys) else result
+
+
+def run_bb84_link(
+    config: SessionConfig,
+    rng: Generator | None = None,
+    *,
+    session: MonitoredSession | None = None,
+    authentication: AuthenticationPool | None = None,
+    transport: Transport | None = None,
+) -> LinkKeys | AbortEvidence:
+    """Run one link and return both local outputs for simulator experiments."""
+    if authentication is None and transport is not None:
+        raise ValueError("a classical transport requires an authentication pool")
     if rng is None:
         rng = SimRNG(config.seed).generator
-    session_id = uuid4()
-    bb84 = config.bb84
-    observed, truth = simulate_bb84(config, rng)
-    estimate = estimate_parameters(sift(observed), bb84, rng)
-    if isinstance(estimate, ParameterAbort):
+    if session is None:
+        session = MonitoredSession(config)
+    elif session.config != config:
+        raise ValueError("monitor and BB84 configurations differ")
+    session.start()
+    link: AbstractContextManager[
+        tuple[ClassicalLink | None, Callable[[bytes], None] | None]
+    ]
+    if authentication is None:
+        link = nullcontext((None, None))
+    else:
+        link = authentication.link(session.session_id, transport)
+    try:
+        with link as (channel, refresh):
+            return _run_monitored_bb84(config, rng, session, channel, refresh)
+    except AuthenticationError as exc:
+        session.abort(str(exc))
         return AbortEvidence(
-            session_id, estimate.reason, estimate.planned_sample_size, estimate.stats
+            session.session_id,
+            "classical authentication failed",
+            session.metrics.compared,
+            None,
         )
 
+
+def _run_monitored_bb84(
+    config: SessionConfig,
+    rng: Generator,
+    session: MonitoredSession,
+    channel: ClassicalLink | None,
+    refresh: Callable[[bytes], None] | None,
+) -> LinkKeys | AbortEvidence:
+    session_id = session.session_id
+
+    def abort(
+        reason: AbortReason,
+        planned: int,
+        stats: QBERStatistics | None,
+    ) -> AbortEvidence:
+        session.abort(reason)
+        return AbortEvidence(session_id, reason, planned, stats)
+
+    bb84 = config.bb84
+    observed, truth = simulate_bb84(config, rng)
+    session.record_transmission(observed)
+    session.advance(State.BASIS_RECONCILIATION, "exchanging detected gates and bases")
+    if channel is not None:
+        channel.exchange(
+            "bob", "detected_gates", np.packbits(observed.detected_mask).tobytes()
+        )
+        channel.exchange(
+            "alice", "alice_bases", np.packbits(observed.alice_bases).tobytes()
+        )
+        channel.exchange("bob", "bob_bases", np.packbits(observed.bob_bases).tobytes())
+    sifted = sift(observed)
+    session.sample(observed, sifted, None)
+    session.advance(State.PARAMETER_ESTIMATION, "sampling public test bits")
+    estimate = estimate_parameters(sifted, bb84, rng, channel=channel)
+    alarm = session.sample(observed, sifted, estimate.stats)
+    if isinstance(estimate, ParameterAbort):
+        return abort(estimate.reason, estimate.planned_sample_size, estimate.stats)
+
     stats = estimate.stats
+    if alarm:
+        return abort("monitor alarm", stats.sample_size, stats)
+    session.advance(State.ERROR_CORRECTION, "public sample within abort limits")
     key_a, key_b = estimate.alice_remaining, estimate.bob_remaining
     if bb84.ec_mode == "cascade":
         reconciled = cascade_reconcile(
-            key_a, key_b, stats.q_est, rng, passes=bb84.cascade_passes
+            key_a,
+            key_b,
+            stats.q_est,
+            rng,
+            passes=bb84.cascade_passes,
+            channel=channel,
         )
     else:
         reconciled = perfect_ec(key_a, key_b, stats.q_est, bb84.f_ec_ideal)
     corrected = reconciled.key_b_corrected
 
+    session.advance(State.VERIFICATION, "comparing verification tags")
     n_key = key_a.size
     if verification_collision_bound(n_key) > bb84.eps_cor:
-        return AbortEvidence(
-            session_id, "verification bound exceeds eps_cor", stats.sample_size, stats
-        )
-    verification = verify_keys(key_a, corrected)
+        return abort("verification bound exceeds eps_cor", stats.sample_size, stats)
+    verification = (
+        verify_keys(key_a, corrected)
+        if channel is None
+        else verify_keys(key_a, corrected, channel=channel)
+    )
     if not verification.matches:
-        return AbortEvidence(
-            session_id, "verification mismatch", stats.sample_size, stats
-        )
+        return abort("verification mismatch", stats.sample_size, stats)
     length = secret_key_length(
         n_key,
         stats.q_ub,
@@ -95,23 +220,36 @@ def run_bb84_session(
         bb84.eps_cor,
     )
     if length <= 0:
-        return AbortEvidence(
-            session_id, "no secret key at this QBER/length", stats.sample_size, stats
+        return abort("no secret key at this QBER/length", stats.sample_size, stats)
+    auth_bits = AUTH_BITS if refresh is not None else 0
+    if length <= auth_bits:
+        return abort(
+            "insufficient key for authentication refresh", stats.sample_size, stats
         )
 
+    session.advance(State.PRIVACY_AMPLIFICATION, "extracting finite-length key")
     seed = random_toeplitz_seed(n_key, length)
+    bob_seed = seed
+    if channel is not None:
+        public_seed = channel.exchange(
+            "alice", "toeplitz_seed", np.packbits(seed).tobytes()
+        )
+        bob_seed = np.unpackbits(
+            np.frombuffer(public_seed, dtype=np.uint8), count=seed.size
+        )
     alice = toeplitz_hash_fft(key_a, length, seed)
-    bob = toeplitz_hash_fft(corrected, length, seed)
+    bob = toeplitz_hash_fft(corrected, length, bob_seed)
     # The simulator checks the two local outputs before returning a shared key.
     if not np.array_equal(alice, bob):
-        return AbortEvidence(
-            session_id, "privacy amplification mismatch", stats.sample_size, stats
-        )
-    return FinalKey(
-        key_bytes=np.packbits(alice).tobytes(),
+        return abort("privacy amplification mismatch", stats.sample_size, stats)
+    alice_bytes = np.packbits(alice).tobytes()
+    bob_bytes = np.packbits(bob).tobytes()
+    prefix = auth_bits // 8
+    final_key = FinalKey(
+        key_bytes=alice_bytes[prefix:],
         key_id=uuid4(),
         session_id=session_id,
-        length_bits=length,
+        length_bits=length - auth_bits,
         qber=stats.q_est,
         qber_ub=stats.q_ub,
         leak_total=reconciled.leak_bits + verification.leak_bits,
@@ -120,4 +258,10 @@ def run_bb84_session(
         created_at=datetime.now(UTC),
         backend=bb84.backend,
         ground_truth_eve_present=bool(truth.eve_intercepted_mask.any()),
+        auth_bits=auth_bits,
+        net_key_rate=(length - auth_bits) / sifted.sent,
     )
+    session.advance(State.KEY_READY, "verified key available")
+    if refresh is not None:
+        refresh(alice_bytes[:prefix])
+    return LinkKeys(final_key, bob_bytes[prefix:])

@@ -50,3 +50,25 @@ else:
 ```powershell
 uv run python experiments/bb84_postprocessing.py
 ```
+
+## Giám sát phiên BB84
+
+```powershell
+uv run qkdsim calibrate --config configs/default.yaml --output calibration.json
+uv run qkdsim monitor --config configs/default.yaml --detector sprt --calibration calibration.json
+uv run qkdsim monitor --config configs/bb84_eve_full.yaml --detector joint
+```
+
+Lệnh `monitor` ghi `events.jsonl` trong thư mục phiên và in đường dẫn
+thư mục trong JSON. Nếu phiên dừng, thư mục còn có `evidence.json` và
+biểu đồ `qber.png`. Dùng `--output` để chọn thư mục gốc.
+
+## Thử nghiệm MITM trên kênh cổ điển
+
+```powershell
+uv run python experiments/e12_mitm_classical.py
+```
+
+Thử nghiệm E12 kiểm tra Eve có thiết lập được khóa riêng với từng bên
+trong hai chế độ xác thực và ghi số liệu cùng cấu hình vào
+[`results/e12_mitm.json`](results/e12_mitm.json).

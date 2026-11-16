@@ -1,16 +1,22 @@
 """Command-line entry point."""
 
 import json
+from dataclasses import replace
+from enum import StrEnum
 from pathlib import Path
 from typing import Annotated
 
 import typer
 
+from qkdsim.auth.pool import AuthenticationPool
 from qkdsim.config import load_config
+from qkdsim.monitor.calibration import Calibration
+from qkdsim.monitor.session import MonitoredSession
 from qkdsim.postprocess.estimation import ParameterAbort, estimate_parameters
+from qkdsim.postprocess.result import AbortEvidence, FinalKey
 from qkdsim.postprocess.sifting import sift
 from qkdsim.rng import SimRNG
-from qkdsim.simulation import simulate_bb84
+from qkdsim.simulation import calibrate_bb84, run_bb84_session, simulate_bb84
 
 app = typer.Typer(help="Mô phỏng phân phối khóa lượng tử.", no_args_is_help=True)
 
@@ -60,6 +66,73 @@ def bb84(
             wilson=estimate.stats.wilson,
         )
     typer.echo(json.dumps(summary))
+
+
+class DetectorOption(StrEnum):
+    """Monitor modes exposed by the CLI."""
+
+    threshold = "threshold"
+    ci = "ci"
+    sprt = "sprt"
+    cusum = "cusum"
+    joint = "joint"
+
+
+@app.command()
+def monitor(
+    config: Annotated[Path | None, typer.Option(help="Tệp cấu hình YAML.")] = None,
+    detector: Annotated[DetectorOption | None, typer.Option()] = None,
+    calibration: Annotated[Path | None, typer.Option(help="Tệp hiệu chuẩn.")] = None,
+    output: Annotated[Path, typer.Option(help="Thư mục lưu kết quả phiên.")] = Path(
+        "results/monitor",
+    ),
+) -> None:
+    """Chạy phiên BB84 có giám sát và ghi nhật ký cùng bằng chứng khi dừng."""
+    try:
+        settings = load_config(config)
+        if detector is not None:
+            settings = replace(
+                settings,
+                monitor=replace(
+                    settings.monitor,
+                    detector=detector.value,
+                ),
+            )
+        baseline = Calibration.read(calibration) if calibration is not None else None
+        session = MonitoredSession(settings, output=output, calibration=baseline)
+        result = run_bb84_session(
+            settings,
+            session=session,
+            authentication=AuthenticationPool(),
+        )
+    except (OSError, ValueError) as exc:
+        raise typer.BadParameter(str(exc)) from exc
+    summary = session.events[-1].to_dict()
+    summary["directory"] = str(session.directory)
+    summary["status"] = "abort" if isinstance(result, AbortEvidence) else "key_ready"
+    if isinstance(result, FinalKey):
+        summary.update(
+            length_bits=result.length_bits,
+            gross_length_bits=result.gross_length_bits,
+            auth_bits=result.auth_bits,
+            net_key_rate=result.net_key_rate,
+        )
+    typer.echo(json.dumps(summary, allow_nan=False))
+
+
+@app.command()
+def calibrate(
+    config: Annotated[Path | None, typer.Option(help="Tệp cấu hình YAML.")] = None,
+    output: Annotated[Path, typer.Option()] = Path("calibration.json"),
+    pulses: Annotated[int, typer.Option(min=1)] = 100_000,
+) -> None:
+    """Đo QBER nền, tỷ lệ phát hiện và tỷ lệ đếm tối trên cổng trống."""
+    try:
+        calibrate_bb84(load_config(config), pulses=pulses, empty_gates=pulses).write(
+            output,
+        )
+    except (OSError, ValueError) as exc:
+        raise typer.BadParameter(str(exc)) from exc
 
 
 def main() -> None:

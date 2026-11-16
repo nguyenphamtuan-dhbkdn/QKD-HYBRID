@@ -32,6 +32,11 @@ monitor:
   beta: 1.0e-3
   e0: 0.02
   e1: 0.10
+  window_size: 50
+  max_seconds: 3600
+  max_msgs: 1000
+  lockdown_after: 3
+  backoff_seconds: 1
 crypto:
   cipher: aes256gcm
   chunk_size: 65536
