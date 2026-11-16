@@ -1,0 +1,6 @@
+channel:
+  e_misalign: 0.0
+attack:
+  kind: ir
+  p: 1.0
+  basis_mode: random
