@@ -19,3 +19,27 @@
 - Khoảng tin cậy hai phía Clopper–Pearson và Wilson dùng mức tin cậy mặc định 95%. Kiểm thử thống kê dùng seed cố định và dung sai bốn độ lệch chuẩn nhị thức tính theo số bit thực sự được so sánh hoặc số xung được phát hiện. Kiểm thử nguồn Poisson dùng độ lệch chuẩn của trung bình mẫu.
 - Hàm bootstrap lấy khoảng phân vị của các trung bình tái lấy mẫu. Hàm Monte Carlo dùng `SeedSequence.spawn` để cấp một bộ sinh riêng cho mỗi lần chạy và ước lượng khoảng tin cậy của trung bình bằng phân phối Student.
 - CLI chạy đến hết ước lượng tham số. Trạng thái `accepted` nghĩa là phiên vượt qua ngưỡng QBER. Trạng thái `abort` được ghi trong cùng định dạng JSON để chương trình gọi đọc được số liệu. Kiểm tra QBER ở đây phục vụ mô phỏng giáo dục với các giả định lý tưởng hóa.
+
+## M2
+
+- Backend Qiskit Aer chạy một lượt đo trên một mạch Clifford chứa các qubit
+  cần đo trong cả phiên. Mỗi photon được ghi nhận dùng một qubit. Nếu Eve
+  chặn xung, phép đo giữa mạch chiếu qubit vào trạng thái mà Eve phát lại.
+  Mạch giữ kết quả đo của Eve kể cả khi Bob bỏ lỡ photon. Bộ điều phối trả
+  dữ liệu của Eve riêng khỏi quan sát của Alice và Bob.
+- Suy hao sợi quang, số photon đăng ký tại detector và đếm tối dùng mô hình
+  lấy mẫu của backend NumPy. Seed của Aer được lấy từ cùng bộ sinh NumPy của
+  phiên. Khi có nhiễu quang, `NoiseModel` gắn lỗi khử cực và lỗi Pauli Y lên
+  cổng đồng nhất sau Eve và trước phép đo của Bob. Pauli Y mô phỏng cùng xác
+  suất lật bit do lệch trục trong cả hai cơ sở và giữ phân phối đều khi cơ
+  sở khác nhau. Mô hình này dùng xác suất sai của phép đo, với
+  `misalignment_theta` ánh xạ qua `sin²(theta)`.
+- Backend NumPy lấy mẫu trên các mảng có kích thước tăng tuyến tính theo số
+  xung. Với Aer, số lệnh dựng mạch tăng tuyến tính theo số qubit, còn bộ nhớ
+  của bảng stabilizer tăng theo bình phương số qubit. Thời gian của Aer cũng
+  tăng nhanh hơn trong phép đo trên Windows với nhiễu khử cực. Dùng NumPy
+  cho các lượt quét lớn và dùng Aer để đối chiếu ở quy mô nhỏ.
+  Chạy `uv run python experiments/bb84_backend_scaling.py` để đo lại thời
+  gian mô phỏng sau khi khởi động mỗi backend. Tệp kết quả ghi từng lượt đo,
+  trung vị, cấu hình, seed, phiên bản thư viện và trạng thái Git.
+  [Kết quả đo](../results/bb84_backend_scaling.json)

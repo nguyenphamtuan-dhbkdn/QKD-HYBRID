@@ -71,10 +71,28 @@ def test_bb84_cli_reports_insufficient_statistics(tmp_path: Path) -> None:
     assert "q_est" not in summary
 
 
-@pytest.mark.parametrize("yaml", ["bb84: {backend: qiskit}", "attack: {kind: pns}"])
-def test_bb84_cli_rejects_disabled_modes(yaml: str, tmp_path: Path) -> None:
+def test_bb84_cli_can_select_qiskit(tmp_path: Path) -> None:
+    path = tmp_path / "qiskit.yaml"
+    path.write_text(
+        "bb84: {backend: qiskit, n_pulses: 128, k_min: 1, "
+        "test_fraction: 0.5, eps_pe: 0.1, q_max: 0.4}\n"
+        "channel: {e_misalign: 0}\n",
+        encoding="utf-8",
+    )
+    result = CliRunner().invoke(app, ["bb84", "--config", str(path)])
+    assert result.exit_code == 0, result.exception
+    summary = json.loads(result.output)
+    assert summary["sent"] == summary["detected"] == 128
+    assert summary["status"] == "accepted"
+    assert summary["q_est"] == 0
+
+
+@pytest.mark.parametrize("backend", ["fast", "qiskit"])
+def test_bb84_cli_rejects_pns(backend: str, tmp_path: Path) -> None:
     path = tmp_path / "mode.yaml"
-    path.write_text(yaml, encoding="utf-8")
+    path.write_text(
+        f"bb84: {{backend: {backend}}}\nattack: {{kind: pns}}\n", encoding="utf-8"
+    )
     result = CliRunner().invoke(app, ["bb84", "--config", str(path)])
     assert result.exit_code == 2
     assert "currently supports" in result.output

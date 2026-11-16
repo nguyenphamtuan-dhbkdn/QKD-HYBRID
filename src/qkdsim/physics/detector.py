@@ -32,12 +32,19 @@ def detect(
     """
     registered = rng.binomial(photons, config.eta_det)
     ones = rng.binomial(registered, p_one)
+    return resolve_clicks(registered, ones, config, rng)
+
+
+def resolve_clicks(
+    registered: CountArray, ones: CountArray, config: ChannelConfig, rng: Generator
+) -> Detection:
+    """Add a random dark click with P=p_dark and squash simultaneous clicks."""
     zero_click = registered > ones
     one_click = ones > 0
 
     if config.p_dark > 0:
-        dark = rng.random(photons.size) < config.p_dark
-        dark_one = rng.random(photons.size) < 0.5
+        dark = rng.random(registered.size) < config.p_dark
+        dark_one = rng.random(registered.size) < 0.5
         zero_click |= dark & ~dark_one
         one_click |= dark & dark_one
 

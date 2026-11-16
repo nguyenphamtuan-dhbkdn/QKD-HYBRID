@@ -1,4 +1,4 @@
-"""Fast NumPy preparation and measurement for BB84 participants."""
+"""Shared BB84 preparation and fast NumPy measurement."""
 
 from dataclasses import dataclass, field
 
@@ -32,8 +32,6 @@ class BB84Transmission:
 
 def prepare_bb84(config: SessionConfig, rng: Generator) -> PulseStates:
     """Draw P(a=1)=1/2 and P(A=Z)=p_z, then prepare the configured source."""
-    if config.bb84.backend != "fast":
-        raise ValueError("BB84 currently supports backend 'fast'")
     n_pulses = config.bb84.n_pulses
     bits = rng.integers(0, 2, size=n_pulses, dtype=np.uint8)
     bases = sample_bases(n_pulses, config.bb84.p_z, rng)

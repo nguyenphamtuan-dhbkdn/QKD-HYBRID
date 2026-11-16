@@ -63,10 +63,16 @@ def combine_errors(first: float, second: float) -> float:
     return first * (1 - second) + (1 - first) * second
 
 
+def misalignment_qber(config: ChannelConfig) -> float:
+    """Return sin(theta)**2 when an angle is set, or the direct probability."""
+    if config.misalignment_theta is not None:
+        return noise_qber("misalignment", config.misalignment_theta)
+    return config.e_misalign
+
+
 def channel_qber(config: ChannelConfig) -> float:
     """Combine the configured independent optical errors for equal bases."""
-    misalignment = config.e_misalign
-    if config.misalignment_theta is not None:
-        misalignment = noise_qber("misalignment", config.misalignment_theta)
     depolarizing = noise_qber("depolarizing", config.depol)
-    return combine_errors(combine_errors(config.bitflip, depolarizing), misalignment)
+    return combine_errors(
+        combine_errors(config.bitflip, depolarizing), misalignment_qber(config)
+    )

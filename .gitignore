@@ -9,4 +9,5 @@ __pycache__/
 .coverage.*
 htmlcov/
 dist/
-/results/
+/results/*
+!/results/bb84_backend_scaling.json

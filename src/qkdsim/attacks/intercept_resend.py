@@ -58,10 +58,10 @@ class InterceptResend:
         if self.basis_mode not in ("random", "fixed_z", "fixed_x"):
             raise ValueError("invalid Eve basis mode")
 
-    def apply(
+    def sample_interceptions(
         self, states: PulseStates, rng: Generator
-    ) -> tuple[PulseStates, GroundTruth]:
-        """Measure in Eve's basis, with P(error)=1/2 across different bases."""
+    ) -> tuple[MaskArray, BitArray]:
+        """Draw Bernoulli(p) on nonempty pulses and select Eve's bases."""
         n_pulses = states.bits.size
         intercepted = (rng.random(n_pulses) < self.p) & (states.photons > 0)
         count = int(np.count_nonzero(intercepted))
@@ -71,16 +71,24 @@ class InterceptResend:
             fixed = Z if self.basis_mode == "fixed_z" else X
             bases = np.full(count, fixed, dtype=np.uint8)
 
+        eve_basis = np.zeros(n_pulses, dtype=np.uint8)
+        eve_basis[intercepted] = bases
+        return intercepted, eve_basis
+
+    def apply(
+        self, states: PulseStates, rng: Generator
+    ) -> tuple[PulseStates, GroundTruth]:
+        """Measure in Eve's basis, with P(error)=1/2 across different bases."""
+        intercepted, eve_basis = self.sample_interceptions(states, rng)
+        bases = eve_basis[intercepted]
         incoming = PulseStates(
             states.bits[intercepted],
             states.bases[intercepted],
             states.photons[intercepted],
         )
-        bits = (rng.random(count) < measurement_p_one(incoming, bases)).astype(np.uint8)
-        eve_basis = np.zeros(n_pulses, dtype=np.uint8)
-        eve_bit = np.zeros(n_pulses, dtype=np.uint8)
-        eve_basis[intercepted] = bases
-        eve_bit[intercepted] = bits
+        eve_bit = np.zeros(states.bits.size, dtype=np.uint8)
+        p_one = measurement_p_one(incoming, bases)
+        eve_bit[intercepted] = rng.random(bases.size) < p_one
 
         forwarded = PulseStates(
             np.where(intercepted, eve_bit, states.bits),

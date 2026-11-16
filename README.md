@@ -27,3 +27,7 @@ uv run pytest -m statistical
 ```
 
 Lệnh BB84 xuất JSON với số xung gửi, số lượt phát hiện, số bit sau sàng lọc và trạng thái ước lượng. Khi mẫu đủ lớn, đầu ra có QBER ước lượng, cận trên Hoeffding và khoảng tin cậy Clopper–Pearson và Wilson. Chạy lại cùng cấu hình, seed và phiên bản thư viện để tái lập đầu ra.
+
+Để chạy với Qiskit Aer, trong mục `bb84` của tệp YAML, đặt `backend: qiskit`
+và chọn `n_pulses` theo quy mô nhỏ dùng để đối chiếu. Cách đo thời gian và giới hạn quy mô
+được ghi trong [quyết định thiết kế](docs/decisions.md#m2).
