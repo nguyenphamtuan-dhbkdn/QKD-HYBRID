@@ -1,0 +1,60 @@
+{
+  "git_commit": "debb6354d0f4f9b4092545ff167d9c8ad08ad4b3",
+  "git_dirty": true,
+  "platform": "Windows-10-10.0.26200-SP0",
+  "processor": "AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD",
+  "python": "3.11.18",
+  "library_versions": {
+    "numpy": "2.2.6",
+    "scipy": "1.15.3"
+  },
+  "cascade": {
+    "config": {
+      "n": 16000,
+      "trials": 1000,
+      "passes": 4,
+      "seed": 432015
+    },
+    "samples": [
+      {
+        "qber": 0.01,
+        "successes": 1000,
+        "success_rate": 1.0,
+        "max_f_ec": 1.1363898551763791
+      },
+      {
+        "qber": 0.03,
+        "successes": 1000,
+        "success_rate": 1.0,
+        "max_f_ec": 1.1622786186639331
+      },
+      {
+        "qber": 0.05,
+        "successes": 1000,
+        "success_rate": 1.0,
+        "max_f_ec": 1.1714509936785504
+      },
+      {
+        "qber": 0.08,
+        "successes": 1000,
+        "success_rate": 1.0,
+        "max_f_ec": 1.199869390948097
+      }
+    ]
+  },
+  "privacy_amplification": {
+    "config": {
+      "n": 1000000,
+      "length": 1000000,
+      "trials": 3,
+      "seed": 73,
+      "toeplitz_seed_source": "OS entropy"
+    },
+    "seconds": [
+      0.6636929999986023,
+      0.5332090000010794,
+      0.5168510000003153
+    ],
+    "median_seconds": 0.5332090000010794
+  }
+}

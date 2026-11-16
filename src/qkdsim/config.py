@@ -108,7 +108,7 @@ class AttackConfig:
 
 @dataclass(frozen=True)
 class BB84Config:
-    """Pulse generation and BB84 parameter estimation settings."""
+    """Pulse generation and BB84 post-processing settings."""
 
     n_pulses: int = 200_000
     p_z: float = 0.5
@@ -121,10 +121,12 @@ class BB84Config:
     ec_mode: Literal["cascade", "ideal"] = "cascade"
     f_ec_ideal: float = 1.0
     backend: Literal["fast", "qiskit"] = "fast"
+    cascade_passes: int = 4
 
     def __post_init__(self) -> None:
         _integer("bb84.n_pulses", self.n_pulses, 1)
         _integer("bb84.k_min", self.k_min, 1)
+        _integer("bb84.cascade_passes", self.cascade_passes, 1)
         _probability("bb84.p_z", self.p_z)
         _probability("bb84.test_fraction", self.test_fraction)
         if self.test_fraction == 0:

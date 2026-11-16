@@ -9,6 +9,7 @@ bb84:
   eps_sec: 1.0e-9
   eps_cor: 1.0e-12
   ec_mode: cascade
+  cascade_passes: 4
   backend: fast
 channel:
   length_km: 0

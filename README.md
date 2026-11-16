@@ -31,3 +31,22 @@ Lệnh BB84 xuất JSON với số xung gửi, số lượt phát hiện, số b
 Để chạy với Qiskit Aer, trong mục `bb84` của tệp YAML, đặt `backend: qiskit`
 và chọn `n_pulses` theo quy mô nhỏ dùng để đối chiếu. Cách đo thời gian và giới hạn quy mô
 được ghi trong [quyết định thiết kế](docs/decisions.md#m2).
+
+Để chạy đến bước tạo khóa, gọi API Python và chỉ in thông tin phiên.
+
+```python
+from qkdsim.config import SessionConfig
+from qkdsim.simulation import FinalKey, run_bb84_session
+
+result = run_bb84_session(SessionConfig())
+if isinstance(result, FinalKey):
+    print(result.key_id, result.length_bits)
+else:
+    print(result.reason)
+```
+
+Đo lại hiệu suất Cascade và Toeplitz FFT bằng lệnh sau.
+
+```powershell
+uv run python experiments/bb84_postprocessing.py
+```

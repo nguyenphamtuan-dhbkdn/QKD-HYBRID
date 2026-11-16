@@ -3,6 +3,7 @@
 __pycache__/
 *.egg-info/
 .pytest_cache/
+.hypothesis/
 .mypy_cache/
 .ruff_cache/
 .coverage
@@ -11,3 +12,4 @@ htmlcov/
 dist/
 /results/*
 !/results/bb84_backend_scaling.json
+!/results/bb84_postprocessing.json

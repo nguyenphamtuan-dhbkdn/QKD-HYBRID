@@ -43,3 +43,40 @@
   gian mô phỏng sau khi khởi động mỗi backend. Tệp kết quả ghi từng lượt đo,
   trung vị, cấu hình, seed, phiên bản thư viện và trạng thái Git.
   [Kết quả đo](../results/bb84_backend_scaling.json)
+
+## M3
+
+- Cascade dùng các hoán vị từ bộ sinh của phiên. Mỗi lần sửa bit cập nhật
+  chẵn lẻ của mọi khối đã mở chứa bit đó, ưu tiên xử lý khối thuộc lượt sớm
+  hơn. Mỗi khối mới và mỗi bước chia đôi tính một bit công khai của Alice.
+  Khi quay lại một khối đã mở, hai bên dùng thông tin chẵn lẻ đã có. Mặc
+  định chạy bốn lượt, có thể chỉnh bằng `bb84.cascade_passes`. Nếu mẫu
+  công khai có `Q_est = 0`, dùng mức nhiễu mặc định `0.01` để chọn kích
+  thước khối và để trống `f_ec` vì mẫu số bằng không. Với `ec_mode: ideal`,
+  mô phỏng đồng bộ khóa của Bob và làm tròn lên lượng rò rỉ ước tính.
+- Một cặp lỗi có thể nằm trong cùng khối ở mọi lượt nên Cascade hữu hạn
+  có thể còn lỗi. Kiểm tra khóa dùng một điểm đánh giá ngẫu nhiên từ hệ
+  điều hành trong trường `GF(2**61 - 1)`. Thẻ công khai chiếm 64 bit.
+  Xác suất trùng thẻ của hai khóa cùng độ dài được chặn bởi bậc đa thức
+  chia cho kích thước trường. Phiên dừng nếu cận vượt `eps_cor` hoặc hai
+  thẻ khác nhau.
+- Công thức độ dài khóa dùng `eps_PA = eps_sec` và xử lý `eps_cor` ở
+  bước xác minh. Với `Q_ub >= 0.5`, entropy bất lợi nhất là một bit. Đây
+  là công thức khóa hữu hạn giản lược cho mô hình nguồn đơn photon lý
+  tưởng. Khóa từ mô phỏng dùng seed dự đoán được không an toàn trong thực
+  tế. [Shor và Preskill](https://arxiv.org/abs/quant-ph/0003004),
+  [Tomamichel và cộng sự](https://arxiv.org/abs/1103.4130)
+- `qkdsim.simulation.run_bb84_session` dùng chung chuỗi Toeplitz từ hệ điều
+  hành cho hai bên. Bộ mô phỏng đối chiếu hai kết quả PA cục bộ rồi đóng
+  gói khóa từ bit cao đến bit thấp, đệm bit không vào cuối byte và lưu độ
+  dài thật trong `length_bits`. `leak_total` cộng lượng rò từ hiệu chỉnh
+  lỗi và thẻ xác minh. Các bit mẫu đã bị loại khi ước lượng QBER. Dữ liệu
+  Eve trong kết quả dành cho thí nghiệm và được đọc sau khi hai bên đã tạo
+  khóa. Trao đổi cổ điển ở M3 giả định thông điệp được chuyển đúng trong
+  mô phỏng nội bộ. CLI vẫn xuất thống kê đến bước ước lượng tham số.
+- Chạy `uv run python experiments/bb84_postprocessing.py` để đo tỷ lệ
+  đồng bộ và hiệu suất rò rỉ của Cascade theo QBER, sau đó kiểm tra thời
+  gian FFT với đầu vào và đầu ra một triệu bit. Tệp JSON ghi số lần thử,
+  cấu hình, seed, phiên bản thư viện, trạng thái Git và từng lượt đo FFT.
+  Tỷ lệ đồng bộ là kết quả quan sát ở kích thước khóa trong cấu hình đo.
+  [Kết quả đo](../results/bb84_postprocessing.json)

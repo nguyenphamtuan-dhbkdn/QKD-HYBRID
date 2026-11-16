@@ -36,6 +36,7 @@ def test_yaml_overrides(tmp_path: Path) -> None:
         ("bb84: {npulses: 1}", "Invalid bb84 configuration"),
         ("bb84: {q_max: 2}", "bb84.q_max must be in"),
         ("bb84: {test_fraction: 0}", "test_fraction must be positive"),
+        ("bb84: {cascade_passes: 0}", "cascade_passes must be"),
         ("bb84: {f_ec_ideal: 0.5}", "f_ec_ideal must be"),
         ("channel: {e_misalign: '0.1'}", "e_misalign must be a probability"),
         ("channel: {length_km: .inf}", "length_km must be a finite"),
