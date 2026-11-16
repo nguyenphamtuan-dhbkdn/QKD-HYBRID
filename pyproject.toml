@@ -18,6 +18,7 @@ dependencies = [
     "qiskit==2.1.2",
     "qiskit-aer==0.17.2",
     "matplotlib==3.10.8",
+    "cryptography==50.0.2",
 ]
 
 [project.optional-dependencies]

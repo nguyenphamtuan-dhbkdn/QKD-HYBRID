@@ -141,3 +141,36 @@
   số lần thành công và từ chối. Khóa từ mô phỏng có seed dễ dự đoán vẫn
   không an toàn để sử dụng trong thực tế.
   [Kết quả E12](../results/e12_mitm.json)
+
+## M6
+
+- `derive_keys` yêu cầu ít nhất 32 byte khóa QKD và dùng HKDF-SHA256
+  với nhãn riêng cho AES-GCM, ChaCha20-Poly1305, xác thực và OTP. Container
+  sinh salt mới bằng `secrets` cho mỗi lần mã hóa, kể cả khi dùng lại
+  cùng khóa QKD hoặc thử ghi lại tệp. Khóa từ mô phỏng dùng seed dự đoán
+  được không an toàn trong thực tế. [RFC 5869](https://www.rfc-editor.org/rfc/rfc5869.html)
+- QKDH v1 dùng số nguyên big-endian, với mã thuật toán 1 cho AES-256-GCM
+  và 2 cho ChaCha20-Poly1305. Mỗi AAD ghép nguyên văn header, bộ đếm
+  trên đường truyền, chỉ số khối và cờ khối cuối. Chỉ số và bộ đếm
+  bắt đầu từ không. Một tệp rỗng có một khối xác thực rỗng để bảo vệ
+  header. Mỗi khối mang thẻ AEAD 16 byte.
+- Mỗi khóa AEAD có tiền tố nonce ngẫu nhiên riêng. Một khối dùng một
+  nonce và được tính vào ngân sách của khóa. Giới hạn mặc định là
+  `2**20` khối hoặc `crypto.max_bytes_per_key` byte bản rõ, tùy giới
+  hạn nào đến trước. Số khối bị chặn ở `2**32`. Kích thước khối lấy
+  mặc định từ `CryptoConfig` và bị chặn ở 16 MiB để giới hạn cấp
+  phát bộ nhớ khi đọc header từ bên ngoài.
+- Mã hóa và giải mã lần lượt từng khối vào tệp tạm cạnh đích, rồi đổi
+  tên sau khi xử lý đủ dữ liệu. Giải mã kiểm tra cấu trúc, bộ đếm,
+  mọi thẻ AEAD và điểm kết thúc trước khi công bố tệp. Hàm cung cấp
+  khóa nhận mã khóa công khai trước khi header được xác thực và có
+  thể tra cứu trên khóa mà bên nhận đã được cấp.
+- `KeyStore` lưu `FinalKey` trong bộ nhớ. `get_key(size)` giữ chỗ
+  cho khóa nguyên vẹn đầu tiên có ít nhất `size` bit. Bên nhận gọi
+  `get_key_with_id` một lần để lấy khóa và chuyển trạng thái sang
+  `used`. TTL tính từ thời điểm tạo khóa và mặc định theo
+  `monitor.max_seconds`. Khóa quá hạn hoặc bị thu hồi chuyển sang
+  `revoked`. Kho giữ lại mã của mục đã ngừng cấp để từ chối cấp lại.
+  API theo phong cách ETSI và phục vụ mô phỏng cục bộ, chưa triển khai
+  giao thức REST hay bộ kiểm tra tương thích của ETSI.
+  [ETSI GS QKD 014, mục 5](https://www.etsi.org/deliver/etsi_gs/QKD/001_099/014/01.01.01_60/gs_QKD014v010101p.pdf)
