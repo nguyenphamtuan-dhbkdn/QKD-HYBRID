@@ -1,0 +1,98 @@
+{
+  "git_commit": "d91c642c8e37e75228a7e02c4e44b9e545977284",
+  "git_dirty": true,
+  "python": "3.11.18",
+  "library_versions": {
+    "numpy": "2.2.6",
+    "scipy": "1.15.3",
+    "matplotlib": "3.10.8",
+    "PyYAML": "6.0.2",
+    "qiskit": "2.1.2",
+    "qiskit-aer": "0.17.2",
+    "cryptography": "50.0.2"
+  },
+  "experiment": "E14",
+  "seed": 20260116,
+  "rng": "SeedSequence(seed, spawn_key=(experiment_number, trial_index))",
+  "quick": true,
+  "language": "vi",
+  "config": {
+    "repeats": 30,
+    "quick": 8,
+    "pulses": 100000,
+    "bits": 8192,
+    "alpha": 0.01
+  },
+  "options_sha256": "e276f2668b4f4c1ac3e424aa35f33a51e6330f2ab3addd25a94d8e7bebc719f3",
+  "config_sha256": "e1acb31a11315198f0278fd360396696e103b8d327a8ec8cb0e368b074a9a541",
+  "session_defaults": {
+    "seed": 20260116,
+    "bb84": {
+      "n_pulses": 200000,
+      "p_z": 0.5,
+      "test_fraction": 0.1,
+      "k_min": 200,
+      "q_max": 0.11,
+      "eps_pe": 1e-10,
+      "eps_sec": 1e-09,
+      "eps_cor": 1e-12,
+      "ec_mode": "cascade",
+      "f_ec_ideal": 1.0,
+      "backend": "fast",
+      "cascade_passes": 4,
+      "basis_source": "numpy"
+    },
+    "channel": {
+      "length_km": 0.0,
+      "alpha_db_per_km": 0.2,
+      "e_misalign": 0.01,
+      "depol": 0.0,
+      "bitflip": 0.0,
+      "misalignment_theta": null,
+      "eta_det": 1.0,
+      "p_dark": 0.0
+    },
+    "attack": {
+      "kind": "none",
+      "p": 0.0,
+      "basis_mode": "random"
+    },
+    "e91": {
+      "n_pairs": 200000,
+      "visibility": 1.0,
+      "chsh_z": 5.0,
+      "backend": "fast"
+    },
+    "monitor": {
+      "detector": "sprt",
+      "alpha": 0.001,
+      "beta": 0.001,
+      "e0": 0.02,
+      "e1": 0.1,
+      "window_size": 50,
+      "max_seconds": 3600.0,
+      "max_msgs": 1000,
+      "lockdown_after": 3,
+      "backoff_seconds": 1.0
+    },
+    "crypto": {
+      "cipher": "aes256gcm",
+      "chunk_size": 65536,
+      "max_bytes_per_key": 1073741824
+    },
+    "source": {
+      "kind": "single_photon",
+      "mu": null
+    }
+  },
+  "auxiliary_session": null,
+  "os_entropy": "AEAD, session IDs, verification, PA, fixtures",
+  "csv": "E14_randomness.csv",
+  "csv_sha256": "f859986de2951b0e33ae95cdc111edfd4aa238cef3d1d2e98608908497753985",
+  "figures": [
+    "E14_randomness.png",
+    "E14_randomness.pdf"
+  ],
+  "rows": 265,
+  "seconds": 3.188560399998096
+}

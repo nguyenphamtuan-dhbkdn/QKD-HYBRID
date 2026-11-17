@@ -76,3 +76,30 @@ def grover_effective_bits(key_bits: int) -> float:
     if key_bits < 0:
         raise ValueError("key_bits must be nonnegative")
     return key_bits / 2
+
+
+def decoy_bounds(
+    mu: float,
+    nu: float,
+    eta: float,
+    dark: float,
+    misalignment: float,
+) -> tuple[float, float, float, float]:
+    """Return Q_mu, E_mu, Y1 lower, e1 upper (Ma et al., Eqs. 10–11, 34, 37)."""
+    if not 0 < nu < mu:
+        raise ValueError("expected 0 < nu < mu")
+    s_mu, s_nu = -math.expm1(-eta * mu), -math.expm1(-eta * nu)
+    q_mu, q_nu = dark + s_mu, dark + s_nu
+    error_mu = (0.5 * dark + misalignment * s_mu) / q_mu if q_mu else 0.5
+    y1 = max(
+        0.0,
+        (mu / (mu * nu - nu**2))
+        * (
+            q_nu * math.exp(nu)
+            - q_mu * math.exp(mu) * (nu / mu) ** 2
+            - (1 - (nu / mu) ** 2) * dark
+        ),
+    )
+    numerator = (0.5 * dark + misalignment * s_nu) * math.exp(nu) - 0.5 * dark
+    e1 = min(0.5, numerator / (y1 * nu)) if y1 else 0.5
+    return q_mu, error_mu, y1, e1

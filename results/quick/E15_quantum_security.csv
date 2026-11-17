@@ -1,0 +1,11 @@
+﻿metric,series,x,value,low,high,n,reference,key_bits,attack,cost_model
+security,classical,AES-128,128,,,,,128,,
+security,quantum,AES-128,64.0,,,,,128,Grover,generic key-search queries
+security,classical,AES-256,256,,,,,256,,
+security,quantum,AES-256,128.0,,,,,256,Grover,generic key-search queries
+security,classical,ChaCha20,256,,,,,256,,
+security,quantum,ChaCha20,128.0,,,,,256,Grover,generic key-search queries
+security,classical,RSA-2048,112,,,,,2048,,
+security,quantum,RSA-2048,,,,,,2048,Shor,polynomial
+security,classical,ECC P-256,128,,,,,256,,
+security,quantum,ECC P-256,,,,,,256,Shor,polynomial

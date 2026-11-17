@@ -1,6 +1,8 @@
 """Command-line entry point."""
 
 import json
+import subprocess
+import sys
 from dataclasses import asdict, replace
 from enum import StrEnum
 from pathlib import Path
@@ -8,8 +10,10 @@ from typing import Annotated
 
 import typer
 
+from qkdsim._terminal import configure_utf8
 from qkdsim.auth.pool import AuthenticationPool
 from qkdsim.config import load_config
+from qkdsim.file_demo import decrypt, encrypt
 from qkdsim.monitor.calibration import Calibration
 from qkdsim.monitor.session import MonitoredSession
 from qkdsim.postprocess.estimation import ParameterAbort, estimate_parameters
@@ -23,7 +27,52 @@ from qkdsim.simulation import (
     simulate_bb84,
 )
 
-app = typer.Typer(help="Mô phỏng phân phối khóa lượng tử.", no_args_is_help=True)
+app = typer.Typer(
+    help="Mô phỏng phân phối khóa lượng tử.",
+    no_args_is_help=True,
+    pretty_exceptions_show_locals=False,
+)
+app.command()(encrypt)
+app.command()(decrypt)
+
+
+def _experiment_suite(*args: str) -> None:
+    """Run repository research assets in the CLI's current Python environment."""
+    script = Path(__file__).resolve().parents[2] / "experiments" / "run_all.py"
+    if not script.is_file():
+        typer.echo("Lệnh thí nghiệm cần bản sao mã nguồn của QKD-HYBRID.", err=True)
+        raise typer.Exit(1)
+    result = subprocess.run([sys.executable, str(script), *args], check=False)
+    if result.returncode:
+        raise typer.Exit(result.returncode)
+
+
+@app.command()
+def experiment(
+    name: Annotated[str, typer.Argument(help="Mã thí nghiệm E1–E15.")],
+    quick: Annotated[bool, typer.Option()] = False,
+) -> None:
+    """Chạy riêng một thí nghiệm."""
+    code = name.upper()
+    if not code.startswith("E") or not code[1:].isdigit():
+        raise typer.BadParameter("Dùng mã E1 đến E15.")
+    number = int(code[1:])
+    if not 1 <= number <= 15:
+        raise typer.BadParameter("Dùng mã E1 đến E15.")
+    _experiment_suite("--only", str(number), *(("--quick",) if quick else ()))
+
+
+@app.command()
+def experiments(
+    quick: Annotated[bool, typer.Option()] = False,
+    all_experiments: Annotated[
+        bool, typer.Option("--all", help="Chạy tất cả E1–E15.")
+    ] = False,
+) -> None:
+    """Chạy toàn bộ E1–E15."""
+    if not all_experiments:
+        raise typer.BadParameter("Dùng --all để chạy E1–E15.")
+    _experiment_suite(*(("--quick",) if quick else ()))
 
 
 @app.callback()
@@ -181,4 +230,5 @@ def calibrate(
 
 def main() -> None:
     """Run the Typer command group."""
+    configure_utf8()
     app()

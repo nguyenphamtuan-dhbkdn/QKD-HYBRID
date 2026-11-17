@@ -16,6 +16,7 @@ from qkdsim.analysis.stats import (
 from qkdsim.analysis.theory import (
     asymptotic_key_fraction,
     chsh_werner,
+    decoy_bounds,
     grover_effective_bits,
     h2,
     p_detect_ir,
@@ -24,6 +25,14 @@ from qkdsim.analysis.theory import (
     visibility_threshold_chsh,
 )
 from qkdsim.rng import SimRNG
+
+
+def test_vacuum_weak_decoy_as_nu_tends_to_zero() -> None:
+    """At nu→0, the gain slope gives Y1=Y0+eta and error slope gives e1."""
+    eta, dark, misalignment = 0.1, 1e-6, 0.01
+    _, _, y1, e1 = decoy_bounds(0.5, 1e-7, eta, dark, misalignment)
+    assert y1 == pytest.approx(dark + eta, rel=1e-6)
+    assert e1 == pytest.approx((0.5 * dark + misalignment * eta) / y1, rel=1e-6)
 
 
 def test_intercept_resend_oracles() -> None:

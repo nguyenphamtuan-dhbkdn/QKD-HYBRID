@@ -1,0 +1,3 @@
+﻿metric,series,x,value,low,high,n,reference,successes,both_tags_rejected
+mitm,BB84,no HMAC,1.0,0.8842966917779722,1.0,30,,30,0
+mitm,BB84,HMAC,0.0,0.0,0.11570330822202779,30,,0,30

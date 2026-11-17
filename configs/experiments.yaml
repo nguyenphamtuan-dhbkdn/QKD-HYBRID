@@ -1,0 +1,18 @@
+seed: 20260116
+language: vi
+experiments:
+  E01: experiments/e01.yaml
+  E02: experiments/e02.yaml
+  E03: experiments/e03.yaml
+  E04: experiments/e04.yaml
+  E05: experiments/e05.yaml
+  E06: experiments/e06.yaml
+  E07: experiments/e07.yaml
+  E08: experiments/e08.yaml
+  E09: experiments/e09.yaml
+  E10: experiments/e10.yaml
+  E11: experiments/e11.yaml
+  E12: experiments/e12.yaml
+  E13: experiments/e13.yaml
+  E14: experiments/e14.yaml
+  E15: experiments/e15.yaml

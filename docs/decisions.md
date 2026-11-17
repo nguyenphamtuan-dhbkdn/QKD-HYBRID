@@ -260,3 +260,60 @@
   [Jaques và cộng sự](https://arxiv.org/abs/1910.01700),
   [Shor](https://arxiv.org/abs/quant-ph/9508027),
   [Häner và cộng sự](https://arxiv.org/abs/2001.09580)
+
+## M9
+
+- Mỗi thí nghiệm có YAML riêng, dùng seed gốc trong `configs/experiments.yaml`.
+  SeedSequence định danh bộ sinh con bằng số thí nghiệm và chỉ số lượt.
+  Dùng cùng chỉ số lượt khi so điều kiện ghép cặp. E1 và E7 chạy thêm vài
+  điểm Aer nhỏ. E3 dùng mô hình nhị thức trực tiếp với điều kiện có ít nhất
+  một lỗi trong mẫu công khai.
+- E2 dùng ngưỡng QBER hữu hạn và EC lý tưởng để tách ảnh hưởng của ngưỡng.
+  E4 đo Cascade và xác minh rồi tính độ dài đầu ra PA từ lượng rò quan sát.
+  E5, E8, E10 và E14 dùng EC lý tưởng để giảm thời gian. E8 giữ cùng số
+  lượt phát BB84/E91 và cùng nhiễu lật bit. Tỷ lệ sàng lọc E91 tính trên
+  cặp trùng phùng. E7 ghi tỷ lệ dừng ở cổng Bell trước bước QBER.
+- E6 so mô hình tiệm cận trên mỗi xung BB84 hoặc cặp phát E91. Mỗi nhánh
+  E91 có chiều dài trong cấu hình. Đường xung yếu bỏ qua PNS và là mốc
+  lạc quan. Cận chân không + mồi yếu dùng công thức (10), (11), (34), (37)
+  và (42) của Ma và cộng sự, với tần suất mức tín hiệu quy về một ở giới
+  hạn tiệm cận. Điểm triệt tiêu tìm ngoài lưới vẽ khi cần, theo giới hạn
+  tìm kiếm cấu hình. [Ma và cộng sự](https://arxiv.org/abs/quant-ph/0503005)
+- E9 đo toàn bộ container gồm chia khối, HKDF và I/O. Tệp PNG là ảnh hợp
+  lệ có phần phụ để đạt đúng kích thước. Dữ liệu ngẫu nhiên tổng hợp,
+  khóa AEAD, nonce và salt dùng ngẫu nhiên hệ điều hành. E11 dùng khóa
+  riêng cho phép thử lặp nonce có chủ đích. E12 chạy theo cấu hình phiên
+  trong `configs/e12_mitm.yaml` và đưa bản cấu hình đó vào hồ sơ nguồn gốc.
+- E13 lấy mẫu lỗi công khai theo QBER và số lượt dò theo phân phối nhị
+  thức ở cùng tỷ lệ dò nền. Kịch bản Eve chặn muộn xấp xỉ cùng số lượt
+  tấn công kỳ vọng bằng cách dồn chặn toàn phần về cuối. Cột độ trễ tính
+  từ đầu mẫu. So sánh điểm thiết kế CI/SPRT dùng cùng e0, e1, alpha và
+  beta, với CI chọn cỡ mẫu nhị thức. So sánh theo tỷ lệ lỗi quan sát cần
+  lưu ý khoảng tin cậy, nhất là ở cấu hình nhanh.
+- Hình đọc từ CSV, dùng màu theo giao thức, nhãn tiếng Việt hoặc tiếng Anh
+  và PNG/PDF cùng tên gốc. Bản JSON ghi cấu hình, commit, phiên bản và hash.
+  Bản chạy nhanh giảm số lượt và cắt kích thước tối đa E9, giữ đủ
+  E1–E15. Bản đầy đủ tăng số lượt và khối lượng I/O theo YAML.
+  [Chỉ mục chạy nhanh](../results/quick/run_all.json)
+- Dùng `run_all.py --only N` làm lệnh chạy riêng cho mỗi thí nghiệm cùng
+  một định dạng kết quả. E8 đo thời gian phiên theo đường gọi của từng
+  giao thức, gồm chi phí giám sát mà đường gọi đó thực hiện và thời gian
+  kết thúc sớm nếu dừng. E7 ghi riêng số lần vượt giới hạn Bell quan sát
+  được và số lần dừng theo cận dưới CHSH.
+- Pytest dùng `--capture=sys` để giữ thu đầu ra Python trên Windows. Khi
+  dùng thu đầu ra theo file descriptor, DLL của Aer gặp lỗi khởi tạo
+  trong bước thu thập bộ kiểm thử trên máy chạy này.
+
+## M10
+
+- D1 đặt Alice và Bob trong một tiến trình. Khung HMAC và bản mã đi qua
+  TCP loopback, còn Eve chặn–phát lại ở kênh lượng tử mô phỏng. Bật hoặc
+  tắt Eve làm ngừng dùng khóa đang giữ. Phiên mới tuân theo back-off và
+  lockdown, rồi chỉ cấp cửa gửi nếu vượt qua giám sát.
+- D2 lưu khóa của Bob trong tệp riêng dành cho demo để hai lệnh chạy ở
+  hai tiến trình. Cách lưu này phụ thuộc quyền truy cập thư mục cục bộ.
+  CLI chỉ in mã phiên, mã khóa, số bit, QBER và thông tin tệp.
+- Dàn ý báo cáo có chỗ nhúng phần E1–E15. Trình chạy chèn hình, liên kết
+  CSV và PDF, bảng E8/E15 và phần diễn giải từ từng lượt chạy. BibTeX dùng
+  thông tin thư mục từ các bản công khai khớp nhan đề trong đặc tả. Phần
+  đối chiếu theo số trang chờ PDF của người dùng trong `docs/papers/`.

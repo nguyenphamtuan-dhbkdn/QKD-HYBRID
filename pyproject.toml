@@ -41,7 +41,8 @@ packages = ["src/qkdsim"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "--strict-markers"
+# Native Aer DLL initialization fails under pytest's fd capture on Windows.
+addopts = "--strict-markers --capture=sys"
 markers = ["statistical: kiểm thử xác suất với seed cố định"]
 
 [tool.ruff]

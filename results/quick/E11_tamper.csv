@@ -1,0 +1,13 @@
+﻿metric,series,x,value,low,high,n,reference,successes
+tamper,aes256gcm,header,1.0,0.8842966917779722,1.0,30,,30
+tamper,aes256gcm,ciphertext,1.0,0.8842966917779722,1.0,30,,30
+tamper,aes256gcm,tag,1.0,0.8842966917779722,1.0,30,,30
+tamper,aes256gcm,truncate,1.0,0.8842966917779722,1.0,30,,30
+tamper,aes256gcm,reorder,1.0,0.8842966917779722,1.0,30,,30
+nonce_leak,aes256gcm,nonce reuse,1.0,0.8842966917779722,1.0,30,,30
+tamper,chacha20poly1305,header,1.0,0.8842966917779722,1.0,30,,30
+tamper,chacha20poly1305,ciphertext,1.0,0.8842966917779722,1.0,30,,30
+tamper,chacha20poly1305,tag,1.0,0.8842966917779722,1.0,30,,30
+tamper,chacha20poly1305,truncate,1.0,0.8842966917779722,1.0,30,,30
+tamper,chacha20poly1305,reorder,1.0,0.8842966917779722,1.0,30,,30
+nonce_leak,chacha20poly1305,nonce reuse,1.0,0.8842966917779722,1.0,30,,30

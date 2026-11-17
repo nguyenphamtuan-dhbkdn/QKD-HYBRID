@@ -1,0 +1,82 @@
+{
+  "git_commit": "d91c642c8e37e75228a7e02c4e44b9e545977284",
+  "git_dirty": true,
+  "python": "3.11.18",
+  "library_versions": {
+    "numpy": "2.2.6",
+    "scipy": "1.15.3",
+    "matplotlib": "3.10.8",
+    "PyYAML": "6.0.2",
+    "qiskit": "2.1.2",
+    "qiskit-aer": "0.17.2",
+    "cryptography": "50.0.2"
+  },
+  "seed": 20260116,
+  "quick": true,
+  "language": "vi",
+  "seconds": 116.0296692999982,
+  "experiments": {
+    "E01": {
+      "rows": 46,
+      "seconds": 7.313403100000869
+    },
+    "E02": {
+      "rows": 48,
+      "seconds": 7.072123400001146
+    },
+    "E03": {
+      "rows": 6,
+      "seconds": 0.9825697999986005
+    },
+    "E04": {
+      "rows": 64,
+      "seconds": 13.564634800000931
+    },
+    "E05": {
+      "rows": 7,
+      "seconds": 6.730744799999229
+    },
+    "E06": {
+      "rows": 51,
+      "seconds": 0.9994818999985
+    },
+    "E07": {
+      "rows": 64,
+      "seconds": 5.26365259999875
+    },
+    "E08": {
+      "rows": 112,
+      "seconds": 10.168532700001379
+    },
+    "E09": {
+      "rows": 96,
+      "seconds": 24.11611560000165
+    },
+    "E10": {
+      "rows": 30,
+      "seconds": 3.7193551000018488
+    },
+    "E11": {
+      "rows": 12,
+      "seconds": 6.321535399998538
+    },
+    "E12": {
+      "rows": 2,
+      "seconds": 0.9396472000007634
+    },
+    "E13": {
+      "rows": 888,
+      "seconds": 24.76518539999961
+    },
+    "E14": {
+      "rows": 265,
+      "seconds": 3.188560399998096
+    },
+    "E15": {
+      "rows": 10,
+      "seconds": 0.6620657999956165
+    }
+  },
+  "report": "report_results.md",
+  "full_report": "report_vi.md"
+}

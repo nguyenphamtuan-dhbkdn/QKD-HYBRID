@@ -10,6 +10,7 @@ __pycache__/
 .coverage.*
 htmlcov/
 dist/
+*.demo-key.json
 /results/*
 !/results/bb84_backend_scaling.json
 !/results/bb84_postprocessing.json
@@ -18,3 +19,13 @@ dist/
 !/results/randomness_acceptance.json
 !/results/e15_quantum_security.csv
 !/results/e15_quantum_security.json
+!/results/quick/
+/results/quick/*
+!/results/quick/E??_*.csv
+!/results/quick/E??_*.json
+!/results/quick/E??_*.png
+!/results/quick/E??_*.pdf
+!/results/quick/report_results.md
+!/results/quick/report_vi.md
+!/results/quick/run_all.json
+/docs/papers/
