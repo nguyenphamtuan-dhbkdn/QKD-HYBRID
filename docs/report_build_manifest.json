@@ -1,0 +1,890 @@
+{
+  "document": "docs/BaoCao_QKD_Hybrid.docx",
+  "git": {
+    "commit": "5cdd463fe98e57da8c39acd41b40805923c92b48",
+    "dirty": true
+  },
+  "python": "3.11.18",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "library_versions": {
+    "numpy": "2.2.6",
+    "scipy": "1.15.3",
+    "qiskit": "2.1.2",
+    "qiskit-aer": "0.17.2",
+    "cryptography": "50.0.2",
+    "matplotlib": "3.10.8",
+    "PyYAML": "6.0.2",
+    "typer": "0.15.4",
+    "rich": "14.0.0",
+    "pytest": "8.3.5",
+    "pytest-cov": "6.1.1",
+    "hypothesis": "6.131.9",
+    "ruff": "0.11.8",
+    "mypy": "1.15.0",
+    "python-docx": "1.2.0"
+  },
+  "inputs": [
+    {
+      "path": "results/bb84_backend_scaling.json",
+      "sha256": "fd627b8c14908814907497ed2b09f7d4648fd16d283c2a3b4bf075436d609d1b"
+    },
+    {
+      "path": "results/bb84_postprocessing.json",
+      "sha256": "954f1db538830756b750daa76f4478d3a72296c05563c0b5dbaf70a4f62b1cf9"
+    },
+    {
+      "path": "results/demo_chat/0939ab2d-5612-4ca1-ae33-c20f8e02d5d0/events.jsonl",
+      "sha256": "28af544e0bc287d6b53a9990c5efa7da3675862f3095e01e50452a04688fd601",
+      "records": 5
+    },
+    {
+      "path": "results/demo_chat/0939ab2d-5612-4ca1-ae33-c20f8e02d5d0/evidence.json",
+      "sha256": "923cfe304e19c0deacb9476dff13c7dda51a76a1259e7ccee6994dffbb5244cb"
+    },
+    {
+      "path": "results/demo_chat/0939ab2d-5612-4ca1-ae33-c20f8e02d5d0/qber.png",
+      "sha256": "7d898aedc149166c446f9cce78842a8855b7d072117563e84b232c567eacc1d6"
+    },
+    {
+      "path": "results/demo_chat/0fadfc66-4483-4bde-bc25-ba678d3d54dd/events.jsonl",
+      "sha256": "f4b797998d60ee2ccd60dec5cc3cae7ffb15a17ef2b071608f09d9ccbbc1e4d8",
+      "records": 9
+    },
+    {
+      "path": "results/demo_chat/2a011bc2-e640-431e-ac65-09709881c931/events.jsonl",
+      "sha256": "9f3cf19fe1b88739fa0c4fa421204c5473b73bea6965bc1cc535b181205a6c69",
+      "records": 9
+    },
+    {
+      "path": "results/demo_chat/2f800825-8a61-49c9-ae27-c8cbf1b64f12/events.jsonl",
+      "sha256": "32fa4d4f6c804bbdab7143d280952dc1d65032050833c62a7885a9ee9ee7a952",
+      "records": 5
+    },
+    {
+      "path": "results/demo_chat/2f800825-8a61-49c9-ae27-c8cbf1b64f12/evidence.json",
+      "sha256": "5f9a4114cb28b7c8f163a9bd5e126203045a1d6545575ceb0c5b6cc0a33ecb0c"
+    },
+    {
+      "path": "results/demo_chat/2f800825-8a61-49c9-ae27-c8cbf1b64f12/qber.png",
+      "sha256": "7d898aedc149166c446f9cce78842a8855b7d072117563e84b232c567eacc1d6"
+    },
+    {
+      "path": "results/demo_chat/415a507f-1066-48fa-9d36-d25ebcf34213/events.jsonl",
+      "sha256": "bfcd3815454c44b1cf53ea425bd61f44704cc598a75493660231aab73f550b24",
+      "records": 9
+    },
+    {
+      "path": "results/demo_chat/44122dc6-d7cd-46b8-b744-bd154e90d5a6/events.jsonl",
+      "sha256": "6ea9922d96a0401b21ab10b7491f1846d65956546902607f210547eef3b082df",
+      "records": 9
+    },
+    {
+      "path": "results/demo_chat/443bc47e-72e9-498f-8015-9620f25653a5/events.jsonl",
+      "sha256": "db04f1bc7ffa0bf75122b57a674df32840b8b403d8f320ba508bc62d2816a2a7",
+      "records": 9
+    },
+    {
+      "path": "results/demo_chat/4fb904d9-c85f-4cc8-8fdb-3b882a7fdb46/events.jsonl",
+      "sha256": "a5eddb361efaf3e3e030fd7d94b0d39184ce2c37f96e82ed79934ae83bcdca7f",
+      "records": 9
+    },
+    {
+      "path": "results/demo_chat/51f7f975-6766-4f64-8cdb-2b374de6bea8/events.jsonl",
+      "sha256": "3091185ae72742ea7b171c6d530f041af8ae9d750f63522c108c86b10a49028e",
+      "records": 9
+    },
+    {
+      "path": "results/demo_chat/71b00869-997d-49f8-90d5-203400dbc8d2/events.jsonl",
+      "sha256": "8bfdd5cb95b0125da0771b32fb810e7d93ad0496d78fa87ddb870dfa42a71191",
+      "records": 9
+    },
+    {
+      "path": "results/demo_chat/75322d15-2331-48a4-87e7-bcd40e36b20c/events.jsonl",
+      "sha256": "4d41d00c08e384a083779b9b756222602eb7b02b336f2298859a0f5a56dd2e67",
+      "records": 5
+    },
+    {
+      "path": "results/demo_chat/75322d15-2331-48a4-87e7-bcd40e36b20c/evidence.json",
+      "sha256": "b7a2232b76814f30c3e17c97977a3b8ecdfdd3e5dd8afa73d921b33cd2d0e0cf"
+    },
+    {
+      "path": "results/demo_chat/75322d15-2331-48a4-87e7-bcd40e36b20c/qber.png",
+      "sha256": "7d898aedc149166c446f9cce78842a8855b7d072117563e84b232c567eacc1d6"
+    },
+    {
+      "path": "results/demo_chat/80d4f247-86e8-4d64-b934-47d0a0e68aa2/events.jsonl",
+      "sha256": "3990456534efc0ba0c6b5be6df690f85e308eedff59dac7f64ba64ac0aa39a53",
+      "records": 9
+    },
+    {
+      "path": "results/demo_chat/9ae11332-533f-4d9c-b07b-fc8cd55f61ea/events.jsonl",
+      "sha256": "8e17fa7171862310214200c779a2d02d1b5a6bac8147191f9ce817be5fd88813",
+      "records": 9
+    },
+    {
+      "path": "results/demo_chat/ab34aa8c-1466-464c-908d-18afd29dccaf/events.jsonl",
+      "sha256": "980470706aff7eb95191da14e9ea2c7416a0f0328ad32f3f7ece6fa9907f8581",
+      "records": 9
+    },
+    {
+      "path": "results/demo_chat/b38f058c-1f9e-4a89-a655-fff7d97b5ad7/events.jsonl",
+      "sha256": "38e3fc301f05c3cfbae85793fc3faf02263a338c82780a2388f7426323278375",
+      "records": 9
+    },
+    {
+      "path": "results/demo_chat/c0970a90-34dc-4f4a-8a05-2c64f3b0c96f/events.jsonl",
+      "sha256": "2d13d174c6ccf49bbc0352a547625bfbaf351225f1e4462abef6fafce76d4df2",
+      "records": 5
+    },
+    {
+      "path": "results/demo_chat/c0970a90-34dc-4f4a-8a05-2c64f3b0c96f/evidence.json",
+      "sha256": "2c0c1e4b039ea7c35c5078fbcda425b812f84923be1e89117d75eb7b790d3fcd"
+    },
+    {
+      "path": "results/demo_chat/c0970a90-34dc-4f4a-8a05-2c64f3b0c96f/qber.png",
+      "sha256": "7d898aedc149166c446f9cce78842a8855b7d072117563e84b232c567eacc1d6"
+    },
+    {
+      "path": "results/demo_chat/c4ca8ccb-0af1-4c58-a914-6ec2c37820b4/events.jsonl",
+      "sha256": "f5dbafc977efd74aa4cd85c6a127955d87f1ade859fb5a591916b37a901038aa",
+      "records": 5
+    },
+    {
+      "path": "results/demo_chat/c4ca8ccb-0af1-4c58-a914-6ec2c37820b4/evidence.json",
+      "sha256": "3d717fbfb140e03ff8e2a59dc94a47ab6b3be0c2f54dd1473e16263dd398227f"
+    },
+    {
+      "path": "results/demo_chat/c4ca8ccb-0af1-4c58-a914-6ec2c37820b4/qber.png",
+      "sha256": "7d898aedc149166c446f9cce78842a8855b7d072117563e84b232c567eacc1d6"
+    },
+    {
+      "path": "results/demo_chat/ce4a7270-5e9b-466d-b5aa-ebd1685ced7c/events.jsonl",
+      "sha256": "54b66ce4d43f87968bc0d376dbdb46895d62ae01ff5ab658048266bc5fb02fb8",
+      "records": 9
+    },
+    {
+      "path": "results/demo_chat/ce63ab32-c614-4c69-98d7-0e1c914b4760/events.jsonl",
+      "sha256": "f7115e1828fd0a18a215a9b82b5384b74f80c420c00e5853fa15740c2d908d2f",
+      "records": 9
+    },
+    {
+      "path": "results/demo_chat/eba4d15b-4ce6-4419-afda-f91f1d66371c/events.jsonl",
+      "sha256": "c14a0d87f8ed2893f820c0e5cb41a17bffa5a3a4b902113ceba14bd7ee8565be",
+      "records": 9
+    },
+    {
+      "path": "results/e12_mitm.json",
+      "sha256": "a9c44ff500ffd3ca09bfcc7019c0f719688a1f019478c8b9fd25b19df30de134"
+    },
+    {
+      "path": "results/e15_quantum_security.csv",
+      "sha256": "d19a8cf4f3b31c3cf4e486669dc87c81f4293ed386f711709749abe8d1a3456f",
+      "records": 5
+    },
+    {
+      "path": "results/e15_quantum_security.json",
+      "sha256": "49d6f852bf3afd373d3bffb5d80630702d993b5e381b9c03b2e7a0591a596e41"
+    },
+    {
+      "path": "results/e91_acceptance.json",
+      "sha256": "3a313e54b6d36857ff91416ef77f2f10ec80ed621b2734f1c95b3b710146cddc"
+    },
+    {
+      "path": "results/quick/E01_qber_eve.csv",
+      "sha256": "9d2c15bbad1569e11ad39e227ecd0ca20ab1d298a08a5f50e56c331da77f51ef",
+      "records": 46
+    },
+    {
+      "path": "results/quick/E01_qber_eve.json",
+      "sha256": "928ea7ec5efca911431fa10a04a5a807ba141c25cb0b8f8770b4ddd86475bd7f"
+    },
+    {
+      "path": "results/quick/E01_qber_eve.png",
+      "sha256": "632a8a9c7f4c1c7467612196b2648e0c704cf464c93662743de91f2fe628e8d5"
+    },
+    {
+      "path": "results/quick/E02_noise_abort.csv",
+      "sha256": "da655cede9cf92ffc26caae87ed8ee9ee5e713031c3a3e2cf658a539b11b27fa",
+      "records": 48
+    },
+    {
+      "path": "results/quick/E02_noise_abort.json",
+      "sha256": "9160634576b53a3d91dfe9263bf944edac34a77bb6e7a208a09d0a204955932a"
+    },
+    {
+      "path": "results/quick/E02_noise_abort.png",
+      "sha256": "6ea15f50a18f6e4957e419205113fe346e68926a351bb3b95ba8af8db1fed6d5"
+    },
+    {
+      "path": "results/quick/E03_sample_detection.csv",
+      "sha256": "bb06e23aa93e9c008d827e9ee3c982bb0211df450719f1c54b80673f045cda1b",
+      "records": 6
+    },
+    {
+      "path": "results/quick/E03_sample_detection.json",
+      "sha256": "0d9f59af0e6edc91778a70f6fd24754dc8004608b10abddb1df15381282cd063"
+    },
+    {
+      "path": "results/quick/E03_sample_detection.png",
+      "sha256": "29c37e4b4bfeea2febf58869cf4d8ba0ccf0d7a3b4561252cd6ff483fcd9a1bf"
+    },
+    {
+      "path": "results/quick/E04_key_pipeline.csv",
+      "sha256": "78ee80b94f753ee34cd0b3007527417fa559b4c66cd99cb8dbcec34ba41d9cb0",
+      "records": 64
+    },
+    {
+      "path": "results/quick/E04_key_pipeline.json",
+      "sha256": "f6d20c87bb4a58d2afd656d50614cf1b46034a4a019f2aaaecb5cb90c667c5ae"
+    },
+    {
+      "path": "results/quick/E04_key_pipeline.png",
+      "sha256": "27007bcb3e158dba48385a737bc977411e12cd1b13f0d95ad7bcb0b3e495aca0"
+    },
+    {
+      "path": "results/quick/E05_finite_key.csv",
+      "sha256": "8c76da169a5bda6017be1e17177bf94ea3015f53910f5e4862b0fa551f015db7",
+      "records": 7
+    },
+    {
+      "path": "results/quick/E05_finite_key.json",
+      "sha256": "67db7bef9d15edab0d742aa8f53388c083167745d3032ca6ea76cc414ab21a64"
+    },
+    {
+      "path": "results/quick/E05_finite_key.png",
+      "sha256": "771dc8015ca293d8681169d22922f1d4a54e3965ac2f715fb87fc7ba6f31250d"
+    },
+    {
+      "path": "results/quick/E06_distance.csv",
+      "sha256": "9e80e56b47e4f766c93c6e844ee9acbdc99acb72e2119781fec44bb002106ec7",
+      "records": 51
+    },
+    {
+      "path": "results/quick/E06_distance.json",
+      "sha256": "234d15a43a5e13a1112103f31ed4c70c13e4c19888f337c117980789dc8d0595"
+    },
+    {
+      "path": "results/quick/E06_distance.png",
+      "sha256": "e7c4b8e99ca5faf9b4413904e577759bde41a4af048e8f714928464916863882"
+    },
+    {
+      "path": "results/quick/E07_chsh.csv",
+      "sha256": "f5f6ea554cacffe82b4556c6b199b64ca3c79e1560322c8fd47eb47716568f96",
+      "records": 64
+    },
+    {
+      "path": "results/quick/E07_chsh.json",
+      "sha256": "4e88baf65fdefb768aefb7946e85cc55089f1ec128eac58653ff7e85fab87f28"
+    },
+    {
+      "path": "results/quick/E07_chsh.png",
+      "sha256": "df1dd8b11c36a602226ba4d88dfcb560af5de1ef0057c8ae43c585c54f6c0e48"
+    },
+    {
+      "path": "results/quick/E08_protocol_comparison.csv",
+      "sha256": "19118dcff16920488f828b5545624542bd0b06331affc952dafc52353bffcd71",
+      "records": 112
+    },
+    {
+      "path": "results/quick/E08_protocol_comparison.json",
+      "sha256": "ccac6d9e2d82b049eb4fc3ae909da9ec7d1968f1e6b692b69d3e94103abcaf19"
+    },
+    {
+      "path": "results/quick/E08_protocol_comparison.png",
+      "sha256": "ab42f9645e872a9315e6a2ee456db280d8dc2230fa444973fbc189e1fd3fbc93"
+    },
+    {
+      "path": "results/quick/E09_cipher_benchmark.csv",
+      "sha256": "d400bbb5ea5cc960641db6ea3b82bc8b893f7afc8457a7eb9a5269c796024a00",
+      "records": 96
+    },
+    {
+      "path": "results/quick/E09_cipher_benchmark.json",
+      "sha256": "e1cddba4aaff008df225c5537f8a25905c79a9199511981455f38e7fedd38718"
+    },
+    {
+      "path": "results/quick/E09_cipher_benchmark.png",
+      "sha256": "a89e1eba45949e6321b5591af2c0ca4e57d1646c567ef471567f3de870fa332e"
+    },
+    {
+      "path": "results/quick/E10_end_to_end.csv",
+      "sha256": "54b9bd55238b6d8807a7093406a307fbbb450fd67ba4ab4fa590b3b626d4a3ad",
+      "records": 30
+    },
+    {
+      "path": "results/quick/E10_end_to_end.json",
+      "sha256": "24d6a3bfb17b30d82cb1e977d828007be60a7bceb2b2d4658d4ff9bc5e96ae21"
+    },
+    {
+      "path": "results/quick/E10_end_to_end.png",
+      "sha256": "6262b47e4ec47728025656920d42f19b484a6fa85501a62cd483547600ebb3a4"
+    },
+    {
+      "path": "results/quick/E11_tamper.csv",
+      "sha256": "3e9dac373fcc430b9cdcd16156c4efea8cc2fc65df0a1263fac9e75b0c20aa55",
+      "records": 12
+    },
+    {
+      "path": "results/quick/E11_tamper.json",
+      "sha256": "272263891908bbeda67c24ffdba5e5bea662716774bb0966564c914b23275f99"
+    },
+    {
+      "path": "results/quick/E11_tamper.png",
+      "sha256": "38d868465d6eddaa598894a0955f952156cbe9101ca19a2434f10db7ecc876d3"
+    },
+    {
+      "path": "results/quick/E12_classical_mitm.csv",
+      "sha256": "150a867e7baa894267da1ba4388cdf0b8abaa962590d58f4d44ac02fbbc86e78",
+      "records": 2
+    },
+    {
+      "path": "results/quick/E12_classical_mitm.json",
+      "sha256": "77544c87b0a3760e7fdd5260daf18e707c684bffce1835ba2b245f864ea0e401"
+    },
+    {
+      "path": "results/quick/E12_classical_mitm.png",
+      "sha256": "6f694624e3268618939901fcc3688c5941ee6442334dc4e98e99c23a863bdac1"
+    },
+    {
+      "path": "results/quick/E13_detectors.csv",
+      "sha256": "a12fdcf8fa3cdf67c5a135b394189c6f962ee8cc9f4dcbd4d1ad30e0dd2e5262",
+      "records": 888
+    },
+    {
+      "path": "results/quick/E13_detectors.json",
+      "sha256": "7232f143888811393bd4f6bbc58f304675c5d972e45c5dce4a6f02ac7c25195d"
+    },
+    {
+      "path": "results/quick/E13_detectors.png",
+      "sha256": "bae07b1b50e41d62c1ddad2106e44e375f0b1657918b550976e6e15a41428d76"
+    },
+    {
+      "path": "results/quick/E14_randomness.csv",
+      "sha256": "f859986de2951b0e33ae95cdc111edfd4aa238cef3d1d2e98608908497753985",
+      "records": 265
+    },
+    {
+      "path": "results/quick/E14_randomness.json",
+      "sha256": "2c0c8bd1cb6e98e4d7eaacac915e3fefe7f93c844645f01ae4efdfe006638fc8"
+    },
+    {
+      "path": "results/quick/E14_randomness.png",
+      "sha256": "f18b158c589650ee4bc90156c2e32b4985bdba74fab5025aec775436fb76397c"
+    },
+    {
+      "path": "results/quick/E15_quantum_security.csv",
+      "sha256": "7e0ba6367163ad8b7c5e94810e25e09714e6922d27b83d4b796de39e279cec3c",
+      "records": 10
+    },
+    {
+      "path": "results/quick/E15_quantum_security.json",
+      "sha256": "4f943cc962770558eea05842824070b3172ba968b41447eca7a5c87dc5a81141"
+    },
+    {
+      "path": "results/quick/E15_quantum_security.png",
+      "sha256": "d01c68c795439e1b255ff6430f9323b414e375a8d0dc6c5ddbd4108b12bc1445"
+    },
+    {
+      "path": "results/quick/run_all.json",
+      "sha256": "379a13c32f1bd0a08059463579ef18ca996b61350bc6bda29be51c154ed74f2a"
+    },
+    {
+      "path": "results/randomness_acceptance.json",
+      "sha256": "478e9efef2294e26805caf6c4645e3700c74646946dca3ac1045e5476858ab37"
+    },
+    {
+      "path": "results/selected/quick/E03_sample_detection.csv",
+      "sha256": "bb06e23aa93e9c008d827e9ee3c982bb0211df450719f1c54b80673f045cda1b",
+      "records": 6
+    },
+    {
+      "path": "results/selected/quick/E03_sample_detection.json",
+      "sha256": "340377e5f5389d07ef01bd4868432f723959688934aca4e81dfa94efa948071f"
+    },
+    {
+      "path": "results/selected/quick/E03_sample_detection.png",
+      "sha256": "29c37e4b4bfeea2febf58869cf4d8ba0ccf0d7a3b4561252cd6ff483fcd9a1bf"
+    },
+    {
+      "path": "results/selected/quick/run_selected.json",
+      "sha256": "897a8ebbb15d294d1505065299b40bf0e3444bac529e7083fdd8338e00cb228e"
+    }
+  ],
+  "source_files": {
+    "src/qkdsim/__init__.py": "357c65595d83b4311b67a497b626f2512b15b0fd50e2ee8826ec8da09e74896e",
+    "src/qkdsim/_terminal.py": "15ef5af4c4519b0353359a0c6fd754148ee94c013813dc3e82f7f66ec65af4da",
+    "src/qkdsim/analysis/__init__.py": "2aa2aaa0b6b78508c62aa65db88cd5c48ba8955ec6f26bcfd0332bcfe55a6b4c",
+    "src/qkdsim/analysis/chsh.py": "82fac9213d40220407755ee2e0b2ae3e45168ce8c1f463778912f5c8c3f548cd",
+    "src/qkdsim/analysis/quantum_security.py": "bd1f66020380424ba04051833a212c60459f3d030e8a2b77d959d35ddde755ec",
+    "src/qkdsim/analysis/randomness.py": "afd359415d8f9f1d35e3fb87ec50e1895a758f893cffef4b70423975aa587be3",
+    "src/qkdsim/analysis/stats.py": "abe9f68b27ae0ed480254acf7392decb0bed5cc5a59aed8b54d4f9b406eccdb9",
+    "src/qkdsim/analysis/theory.py": "d008d3d47a1a82ec366b2e36041e9e03d2b435e1c0b47d5ab242ef0708ba0b32",
+    "src/qkdsim/attacks/__init__.py": "c31368f1713d2d8b519db259e129590a2fb20c913fed3039ca20742704f10688",
+    "src/qkdsim/attacks/intercept_resend.py": "4f132e26c7aafebb544dba4f53ca52a8cfea039645a9fa003fe00cdb91b11a01",
+    "src/qkdsim/attacks/mitm_classical.py": "efb7403d20a0fa313550ad66cd87b455a1831c6a92bd7234381946f43562eca9",
+    "src/qkdsim/auth/__init__.py": "84665db887766664b332fbc55da1e86efc07fbc3e714dcbd3c3acec9e56eb9ab",
+    "src/qkdsim/auth/channel.py": "3ab215421f7eb9e08594eb3259a914aa6c5c9a22b57b2b2b62bfa437cd6ac79b",
+    "src/qkdsim/auth/pool.py": "3a55cc1637d5765ece3bb02f34941f1a4325745fee3e84947ebfba5b1502949b",
+    "src/qkdsim/cli.py": "fb03c0b552ba37c0617ab5f2a3d7da8d9b89b6bb6ad04584a15d899c2e3a611a",
+    "src/qkdsim/config.py": "8414a6130f831dff528e53057f626ccf44f889471e4ac5bc604dccf844bca935",
+    "src/qkdsim/crypto/__init__.py": "530c12d046ea4e76efde700b81abb69e34b5ecc47df73e101a49b86e33e21c0e",
+    "src/qkdsim/crypto/aead.py": "caa846882f270d6a862152f76b6e45ec2fb388b3fc4465b4eb311a1056dee41a",
+    "src/qkdsim/crypto/container.py": "7946be04be3a2a04a3027e17716505bf271c73a1ca98078ce69854c37076fe85",
+    "src/qkdsim/crypto/kdf.py": "e5f18d4bf2ecca07a8d300d3312e1d2890b4009ffbb44ffab0086b0317785bbd",
+    "src/qkdsim/crypto/keystore.py": "24f286d3e30a6c6e70b3cf5e0fd21224f7649ad30c9519ee17a11212ec9ff353",
+    "src/qkdsim/file_demo.py": "ef5f7d387972b542b4fae3aeb62c162df904bdde881bfe3b9b8d96bc95a0e541",
+    "src/qkdsim/monitor/__init__.py": "a3de78ac840f01615bd94fd4ee57905fb8cf2a2aae13d6a452773ea470cb5bee",
+    "src/qkdsim/monitor/calibration.py": "5bec5357584b1e37c04da12e30b1b6a0a4927a446e3245c812616182b262e9f7",
+    "src/qkdsim/monitor/detectors.py": "cfe9fee87cb8d0e45df1b987dfdbdc6966d146a7951093c21f1ca59eb8c4f461",
+    "src/qkdsim/monitor/events.py": "f65497b04655426797bbdd6a158ec469cabe04971a9326716d00c1ce8ce3b104",
+    "src/qkdsim/monitor/metrics.py": "c4a3d8cc89004e6aed27bdc117697e2914f31ad645b60dca656aaee673489db5",
+    "src/qkdsim/monitor/policy.py": "8e2aeec690c712f96d6f1489373cc535b6ef630f2f7a130805d694a88d2c192f",
+    "src/qkdsim/monitor/session.py": "5e0e97141b5f057f35821708665511e9b4b64010a54f22154882c91dd2e6a920",
+    "src/qkdsim/physics/__init__.py": "0f450ce43d680f1d5fb68334a9a8e50208dd7c3f6213118fa4878b90ea883552",
+    "src/qkdsim/physics/aer.py": "86fb2951842b82ddeedba893d188a5f15dd20d1815c12f1a50cb7a604cb6806f",
+    "src/qkdsim/physics/channel.py": "3a5eead53f6283168a448b3c8ca4e09e229ea9b2e1b706e8c618f47bb0a22c6b",
+    "src/qkdsim/physics/detector.py": "54769915bbc2e70f841101a9e57fcefa1ecf1003749e9db0cb3cf5aa63892a8d",
+    "src/qkdsim/physics/source.py": "d9ddbe15e6f3764dc9b607c20ebdbaaa587643c3d6cdd3c49cd96846b8fd615c",
+    "src/qkdsim/physics/states.py": "ea690d649a5979042c127caadc9dca6a6e9f54c6a4eb24c07cf8a3f6171d49ad",
+    "src/qkdsim/postprocess/__init__.py": "4b5eeebf97822b78f22bb64492c35a1e24a5d06aec19ecebf5eb3eea0a2bdf3d",
+    "src/qkdsim/postprocess/_bits.py": "f809b1ac4bafa3b51c41c51b40e4c1be335cdab2207e96030b09c86da6cc74a2",
+    "src/qkdsim/postprocess/cascade.py": "7d21cdec883e88c69e86c0095e2ec41e069d79227bcd8acf96ad520d0ba3c744",
+    "src/qkdsim/postprocess/estimation.py": "0e20f7638f32e0330b69c3e0598c44c6df20248e27a4c6514a228669801ab0b0",
+    "src/qkdsim/postprocess/keylength.py": "3574d346882a3f2775565f22d3d2cec8b2ca5743d228ea83e80dadd232368425",
+    "src/qkdsim/postprocess/privacy_amp.py": "502ae14b09faf57e480c17f2402d3e26fad1fd27428c8a0a08aeaa65a2b70202",
+    "src/qkdsim/postprocess/result.py": "1a3d02e732cda0d277fa7c2b6e9c4a65f1b669fcfc3425005560c8346628fadc",
+    "src/qkdsim/postprocess/sifting.py": "7418a49b5f6fa4f666dd4781f612b4554ce3961e683803deb26350091b09b34a",
+    "src/qkdsim/postprocess/verification.py": "5003c5a86ef8376998b39dce06060436d2231ab6ca0cf2bd941ca387b25425d0",
+    "src/qkdsim/protocols/__init__.py": "8ba0e64cce6c156b8791bccfcd3a2ef2d81338a138e19b6fb252fe4aa749518b",
+    "src/qkdsim/protocols/bb84.py": "66d67d3720f06260df6e6040013cc3a536e8b8fb2772d4ec6fa7ec43cfb8477b",
+    "src/qkdsim/protocols/bb84_qiskit.py": "bbf6d2b75dd4f1efd9dc07b15e4fb08d23eaa9a4460f7de98adc2063b00eb2b6",
+    "src/qkdsim/protocols/e91.py": "52d0ce4b2907fcd405795a6048e15d992a242fabf1e4b4fabb11232c7f4d9009",
+    "src/qkdsim/protocols/e91_qiskit.py": "808dfdcf3aea5db6fc5c6ad8290fda868315354d7b936dfeda52be2dfaad55f0",
+    "src/qkdsim/qrng.py": "baa56ef33870ff051e05e7c2c3a6c70f949807d2f5a6621ea3560803c9e7fc11",
+    "src/qkdsim/rng.py": "69bd19b2f8e517c4d0dc3decb64a3142922109f9665df6639f6f53b7a81967b8",
+    "src/qkdsim/simulation.py": "e41218d091ecb953a0fe9d173048f02f9de7b481a574c9b071a5704fa1f8ddb0",
+    "experiments/_crypto_trials.py": "cad18f97dd920bfd763b081811032c97a9ecb7a746c7a203382902c11c02cd6c",
+    "experiments/_diagnostics.py": "0f56647f8fb0fbb5be3be02333cad1f2f2af52818ff8b53bc080ab4d099c6a83",
+    "experiments/_protocols.py": "c5357594ea980aa2ce05697c70fcd133baefb82d054ae59d1f10e330b342e1de",
+    "experiments/_provenance.py": "78951c4fcf280595e60700024ecc957d465cf3667a399b1d38ff7f70af8bc1de",
+    "experiments/_report.py": "8c1153fae09071bbf09718ab3d4a37923c7df057332938bc94054b8bf2c1c036",
+    "experiments/_suite.py": "359076b2ed99a37fc64306c3910657272a58822d025598fb0d9432fb430efe0f",
+    "experiments/bb84_backend_scaling.py": "ff96690cbc89a93b37c2218eedb8c5379ef4064342b0690f38f7a107d6cdd0d0",
+    "experiments/bb84_postprocessing.py": "6daa380bed65ac9035402458ece11ed4669fea349d8075e97c6e297b40e70bb4",
+    "experiments/e12_mitm_classical.py": "968c7bdb8e89147f978ea7924a9b4a9aa867affc958169d9e4c2ba8ef54103f9",
+    "experiments/e15_quantum_security.py": "185d49cd0dbf67448f532ff2729526d1efd3026ed9acf8d5980c63c6a38fdff4",
+    "experiments/e91_acceptance.py": "9045b8130d1d1f4de7d51965ce2d098b439b9b72c843581e94e71f6fe0624461",
+    "experiments/plotting.py": "d53fb8f42596c7fba0a3a67df4270331833dfed4ebd29268f8c9c7108d7ded55",
+    "experiments/randomness_acceptance.py": "51cc342bd28f322f3c44627b89203203ecc8ec96eddafca232a40b830353e643",
+    "experiments/run_all.py": "793995f013d50241d8c94aff8f35174f499f20c02cc25e603ecd0bc0e5472996",
+    "demos/file_encrypt_demo.py": "472a52e09e860a736a2e9dcf39ee89d2592134a693f1a3efd56cd1c50f9a9723",
+    "demos/secure_chat.py": "97e6c94890249b5fb4dd13d2552359f586ba3d9e7ca7f01e1fa8ac1bebaa2fd2",
+    "tests/integration/test_bb84_cli.py": "f6651d584d7e328c1425bc8ae27b7f628e2d5be026d517061ab4c1256100a209",
+    "tests/integration/test_bb84_session.py": "28c006b8c42065e242a42f727837528e76b11f13f9df6f267cdbcdc32990ae98",
+    "tests/integration/test_classical_mitm.py": "13686d145caa8be1d8378a64121c76e38e8a5af0b7971fd13270c8f195f275c7",
+    "tests/integration/test_crypto_container.py": "731b0024a21d838c4588936bcf33508d6dd8935a9e91bc6f2b152c478a0af5b6",
+    "tests/integration/test_e91_session.py": "e8a59eb602f53a37d27f809055ab44f7f6a2417c3bc15406c6b31027b4a5f1bd",
+    "tests/integration/test_experiment_suite.py": "0b6e80aa7bf819da8d5ed6347c7f859b0e9f038eb9f82132f1d3b2f572917f3b",
+    "tests/integration/test_file_demo_cli.py": "20f935f0646e3ed33d30ae007060c768b0150b980265763014f550650069ab3e",
+    "tests/integration/test_monitor_session.py": "65167c831c2ad7a9070331d032b3ee1286235c1c78a6d5d1b208a334c215c9a9",
+    "tests/statistical/test_bb84.py": "424f5e095bf54f977823613704205de9f9d5ef574e463311d78905b6df99510d",
+    "tests/statistical/test_bb84_backend_equivalence.py": "b3ace96eba58f2d8c2e330d1845591b081431dad2ddf7ef6954c1ecd6e3c4f29",
+    "tests/statistical/test_e91.py": "9562c4556e43d5f4757223bc97f1e8825a94e59b2a5b05af94f4e285d3c84893",
+    "tests/statistical/test_monitor_rates.py": "dfbed9214fc94a2f9fb501950799a1b4b0df6bfaffb67d8c7c3f614f3644ae1e",
+    "tests/unit/test_analysis.py": "77f9399d2ec5c5263256951cb81c103b6e87bb6d1198680303bc2ab25e7ee3c2",
+    "tests/unit/test_auth_channel.py": "70b527f0b9eda62f433ae794de5c9804b4c2054c78df516b3c137d7ebb394983",
+    "tests/unit/test_bb84_qiskit.py": "59218b372d6a6fd47f381c18107f469457d539787a833b87f790abe5f6294a49",
+    "tests/unit/test_chsh.py": "000c99d8119e564cbdaf5a3ba6acb0f8169fdde2a4f7e39ff6735b1e564e852c",
+    "tests/unit/test_config_rng.py": "0c4b6dc01e25e807ae1e63a8fc57c5951466da2dd2250e0934e983ac68b1af89",
+    "tests/unit/test_crypto_keystore.py": "d10fc71d2c3c4843499af092d5d62b3aa608b3222db2dcf96ab979c135c412b2",
+    "tests/unit/test_crypto_primitives.py": "47a60a708bb73493abdaa03fa5432c94f251816aecda4076d4b24de53939a4ec",
+    "tests/unit/test_m3_postprocess.py": "d32eb76fe616e84f66c7b040d55c50f44ff82706b3133c992d5f54e3e67f164a",
+    "tests/unit/test_monitor.py": "18974d24a1d2350743c8ebe20879a31468825e65bac4f64d5a89e03e77a2ebce",
+    "tests/unit/test_physics.py": "b1f8c0b35d24baee59ad86b4320e8064f163bbf90b33394b200962e26a173c8a",
+    "tests/unit/test_postprocess.py": "a3873a0bde5e6b1878594934314134ccc6c7f0597b9a77d3518189706d24e938",
+    "tests/unit/test_qrng.py": "391b9c35265abee810cf4e8abc13bcebb5a8ec34e727174989f882251f5e2729",
+    "tests/unit/test_quantum_security.py": "bb775f43246f793ae96dc10328f476aa4e553c2a64774270d9b26c2186096b12",
+    "tests/unit/test_randomness.py": "d27f4d5b52b388fbdcc1417b74362550bb2502e433368bf0c7412d12eeafb1a1",
+    "tests/unit/test_scaffold.py": "ed604b56383ee5dbae9772100811a10845537289e513b8d144c98a8cdf4ff14c",
+    "configs/bb84_eve_full.yaml": "af64f6e29d80785db96e1d18deda9e7ca450b9a208f2078fef021eb3c3179c21",
+    "configs/bb84_noiseless.yaml": "d15b5ce174241b24a70fe28a6cefc78c0f2ab570545beac5d2accffb100a233e",
+    "configs/default.yaml": "057b652098d068f3c3dab74902bffe43c58ed73aaa96f65118e96ae524b084b5",
+    "configs/e12_mitm.yaml": "3f95fc9eca9a35b2f6a9ed40d321e962475539295062d4cfd578180442d298c4",
+    "configs/e91_default.yaml": "5ff110791f827d8049ee49d82ae53f5a51d18c8f1393337c4e6a3bbbf24ae649",
+    "configs/experiments/e01.yaml": "26f0312509181ea3e577d0b258100d4e9558129c2d51f62b250f1aab41836e15",
+    "configs/experiments/e02.yaml": "b12a27a20faf01967461b80812348ebd0daaf4ec2aa492875a39b606dc8a71d1",
+    "configs/experiments/e03.yaml": "56c425421b33daaf2ea25a686029b942952feed0317983be64760276ef312927",
+    "configs/experiments/e04.yaml": "c0fa75bf68af5829dc0cb60a512016776b1677140232350011731d8ef8846290",
+    "configs/experiments/e05.yaml": "49b2c4f1bc2969eb497ae01154bba4f7e184a9ff7519f0973865e44c33691d5c",
+    "configs/experiments/e06.yaml": "c6e6ab3274966df53b45fe66fd48fa3ad131425f2b8427548a22335a4ef886ee",
+    "configs/experiments/e07.yaml": "c365caaed350873e63e872ee809ea5010ef514b7e95e33635e4016572957c7e7",
+    "configs/experiments/e08.yaml": "91cc0f5188ab67499cc78d99365ef895c755f12d68ddc79030fdc57545700339",
+    "configs/experiments/e09.yaml": "f5f2ecc5b78630eb974f39fd23091a1349809e5f017092b09fe3ef2a167f54e2",
+    "configs/experiments/e10.yaml": "b49f4214ac763a42af846a3df610c145479412ce87144c94aa9286f9c8e63997",
+    "configs/experiments/e11.yaml": "c18c33f8edd913f636340ae1480aa42254eacea3fabef89e18565c4711eb2e62",
+    "configs/experiments/e12.yaml": "228e0b4565a77b241526efd4936f27238e6a57f76e114b172472b7313a230a99",
+    "configs/experiments/e13.yaml": "5769d8d423ebff3f15877a9673bc573a5383e0203d7395962c027d49fa924169",
+    "configs/experiments/e14.yaml": "e276f2668b4f4c1ac3e424aa35f33a51e6330f2ab3addd25a94d8e7bebc719f3",
+    "configs/experiments/e15.yaml": "e3566b3a06430868d71e9287dfd6c6c520a3da027aabea01951d407ee131dc2f",
+    "configs/experiments.yaml": "e1acb31a11315198f0278fd360396696e103b8d327a8ec8cb0e368b074a9a541"
+  },
+  "tables": [
+    "Bảng 1. Phân biệt đối tượng kỹ thuật và ánh xạ chương trình",
+    "Bảng 2. Đối chiếu các công trình tham khảo với đề tài",
+    "Bảng 3. Ranh giới giữa tham khảo lý thuyết và hiện thực",
+    "Bảng 4. Các câu hỏi nghiên cứu và tiêu chí quan sát",
+    "Bảng 5. Yêu cầu chức năng và điểm hiện thực",
+    "Bảng 6. Ma trận hợp đồng chức năng cấp hệ thống",
+    "Bảng 7. Vấn đề thiết kế cơ chế đã có và giới hạn",
+    "Bảng 8. Công nghệ và phiên bản được ghim trong dự án",
+    "Bảng 9. Đối tượng dữ liệu và phạm vi truy cập",
+    "Bảng 10. Trường cấu hình nhóm seed",
+    "Bảng 11. Trường cấu hình nhóm bb84",
+    "Bảng 12. Trường cấu hình nhóm channel",
+    "Bảng 13. Trường cấu hình nhóm attack",
+    "Bảng 14. Trường cấu hình nhóm e91",
+    "Bảng 15. Trường cấu hình nhóm monitor",
+    "Bảng 16. Trường cấu hình nhóm crypto",
+    "Bảng 17. Trường cấu hình nhóm source",
+    "Bảng 18. Các trường header QKDH v1",
+    "Bảng 19. Đầu vào đầu ra và điểm kiểm tra của các module chính",
+    "Bảng 20. Các lệnh CLI và ý nghĩa kết quả",
+    "Bảng 21. Phiên bản thư viện trong môi trường dựng báo cáo",
+    "Bảng 22. Hồ sơ nguồn gốc các lượt thực nghiệm chính",
+    "Bảng 23. E1 số liệu đọc từ bộ quick",
+    "Bảng 24. E2 số liệu đọc từ bộ quick",
+    "Bảng 25. E3 số liệu đọc từ bộ quick",
+    "Bảng 26. Thời gian mô phỏng BB84 theo backend và quy mô",
+    "Bảng 27. E4 số liệu đọc từ bộ quick",
+    "Bảng 28. E5 số liệu đọc từ bộ quick",
+    "Bảng 29. E6 số liệu đọc từ bộ quick",
+    "Bảng 30. Nghiệm thu đồng bộ Cascade và hiệu suất rò",
+    "Bảng 31. Thời gian Toeplitz FFT ở cấu hình nghiệm thu",
+    "Bảng 32. E7 số liệu đọc từ bộ quick",
+    "Bảng 33. E8 số liệu đọc từ bộ quick",
+    "Bảng 34. Nghiệm thu E91 và đối chiếu dung sai giải tích",
+    "Bảng 35. E9 số liệu đọc từ bộ quick",
+    "Bảng 36. E10 số liệu đọc từ bộ quick",
+    "Bảng 37. E11 số liệu đọc từ bộ quick",
+    "Bảng 38. E12 số liệu đọc từ bộ quick",
+    "Bảng 39. MITM trên hai liên kết khi bật và tắt HMAC",
+    "Bảng 40. E13 số liệu đọc từ bộ quick",
+    "Bảng 41. E14 số liệu đọc từ bộ quick",
+    "Bảng 42. E15 số liệu đọc từ bộ quick",
+    "Bảng 43. Nghiệm thu các phép thử ngẫu nhiên trên cùng độ dài mẫu",
+    "Bảng 44. Mức an toàn lượng tử từ bảng E15 nghiệm thu",
+    "Bảng 45. Các phiên demo chat đã lưu",
+    "Bảng 46. Kết quả kiểm thử và kiểm tra tĩnh đã thực thi",
+    "Bảng 47. Đối chiếu kết quả với sáu câu hỏi nghiên cứu",
+    "Bảng 48. Các hạn chế hiện có và hướng cải tiến"
+  ],
+  "figures": [
+    "Hình 1. Luồng nghiệp vụ tổng thể của QKD-HYBRID",
+    "Hình 2. Hợp đồng tương tác giữa người dùng và các lớp hệ thống",
+    "Hình 3. Chuỗi mô phỏng nguồn kênh Eve và detector",
+    "Hình 4. Cascade với quay lại khối và khuếch đại riêng tư Toeplitz",
+    "Hình 5. Luồng giám sát công khai và quyết định phản ứng",
+    "Hình 6. Luồng mã hóa tệp QKDH và ràng buộc xác thực",
+    "Hình 7. Máy trạng thái phiên BB84 và nhánh dừng",
+    "Hình 8. Kiến trúc chương trình và đường đi của dữ liệu",
+    "Hình 9. E1 QBER theo tỷ lệ chặn và nhiễu",
+    "Hình 10. E2 Nhiễu và xác suất dừng phiên",
+    "Hình 11. E3 Cỡ mẫu và xác suất phát hiện Eve",
+    "Hình 12. E3 từ bộ selected để đối chiếu nguồn",
+    "Hình 13. E4 Số bit qua chuỗi hậu xử lý",
+    "Hình 14. E5 Hiệu ứng khóa hữu hạn",
+    "Hình 15. E6 Tốc độ khóa theo khoảng cách",
+    "Hình 16. E7 CHSH theo Werner và Eve",
+    "Hình 17. E8 So sánh BB84 và E91",
+    "Hình 18. E9 Hiệu năng hai AEAD",
+    "Hình 19. E10 Toàn vẹn dữ liệu đầu cuối",
+    "Hình 20. E11 Sửa tệp và tái sử dụng nonce",
+    "Hình 21. E12 MITM kênh cổ điển",
+    "Hình 22. E13 So sánh bộ phát hiện và ROC",
+    "Hình 23. E14 Chẩn đoán ngẫu nhiên và QRNG",
+    "Hình 24. E15 Mức an toàn lượng tử theo mô hình",
+    "Hình 25. Bằng chứng QBER của phiên chat 0939ab2d-5612-4ca1-ae33-c20f8e02d5d0",
+    "Hình 26. Bằng chứng QBER của phiên chat 2f800825-8a61-49c9-ae27-c8cbf1b64f12",
+    "Hình 27. Bằng chứng QBER của phiên chat 75322d15-2331-48a4-87e7-bcd40e36b20c",
+    "Hình 28. Bằng chứng QBER của phiên chat c0970a90-34dc-4f4a-8a05-2c64f3b0c96f",
+    "Hình 29. Bằng chứng QBER của phiên chat c4ca8ccb-0af1-4c58-a914-6ec2c37820b4"
+  ],
+  "figure_sources": [
+    "docs/report_diagrams/01_overall.png",
+    "docs/report_diagrams/02_interactions.png",
+    "docs/report_diagrams/03_physics.png",
+    "docs/report_diagrams/04_postprocess.png",
+    "docs/report_diagrams/05_monitor.png",
+    "docs/report_diagrams/06_container.png",
+    "docs/report_diagrams/07_session.png",
+    "docs/report_diagrams/08_architecture.png",
+    "results/quick/E01_qber_eve.png",
+    "results/quick/E02_noise_abort.png",
+    "results/quick/E03_sample_detection.png",
+    "results/selected/quick/E03_sample_detection.png",
+    "results/quick/E04_key_pipeline.png",
+    "results/quick/E05_finite_key.png",
+    "results/quick/E06_distance.png",
+    "results/quick/E07_chsh.png",
+    "results/quick/E08_protocol_comparison.png",
+    "results/quick/E09_cipher_benchmark.png",
+    "results/quick/E10_end_to_end.png",
+    "results/quick/E11_tamper.png",
+    "results/quick/E12_classical_mitm.png",
+    "results/quick/E13_detectors.png",
+    "results/quick/E14_randomness.png",
+    "results/quick/E15_quantum_security.png",
+    "results/demo_chat/0939ab2d-5612-4ca1-ae33-c20f8e02d5d0/qber.png",
+    "results/demo_chat/2f800825-8a61-49c9-ae27-c8cbf1b64f12/qber.png",
+    "results/demo_chat/75322d15-2331-48a4-87e7-bcd40e36b20c/qber.png",
+    "results/demo_chat/c0970a90-34dc-4f4a-8a05-2c64f3b0c96f/qber.png",
+    "results/demo_chat/c4ca8ccb-0af1-4c58-a914-6ec2c37820b4/qber.png"
+  ],
+  "table_sources": [
+    "src/qkdsim/; đường dẫn trong bảng tương đối với gói này.",
+    "docs/references.bib; docs/report_outline_vi.md.",
+    "src/qkdsim/; SPEC.md mục 20; docs/decisions.md.",
+    "SPEC.md mục 1.2; experiments/.",
+    "src/qkdsim/; tests/; SPEC.md mục 16–17.",
+    "src/qkdsim/config.py; simulation.py; postprocess/estimation.py; monitor/session.py; crypto/container.py.",
+    "docs/decisions.md; src/qkdsim/.",
+    "pyproject.toml; lệnh dựng báo cáo.",
+    "src/qkdsim/config.py; protocols/; attacks/intercept_resend.py; postprocess/result.py; monitor/events.py.",
+    "src/qkdsim/config.py; configs/default.yaml.",
+    "src/qkdsim/config.py; configs/default.yaml.",
+    "src/qkdsim/config.py; configs/default.yaml.",
+    "src/qkdsim/config.py; configs/default.yaml.",
+    "src/qkdsim/config.py; configs/default.yaml.",
+    "src/qkdsim/config.py; configs/default.yaml.",
+    "src/qkdsim/config.py; configs/default.yaml.",
+    "src/qkdsim/config.py; configs/default.yaml.",
+    "src/qkdsim/crypto/container.py:_HEADER.",
+    "src/qkdsim/; mô tả chi tiết vai trò ở mục 2.3.",
+    "src/qkdsim/cli.py; file_demo.py.",
+    "importlib.metadata.version tại lúc chạy trình dựng.",
+    "JSON gốc; danh sách đầy đủ và SHA-256 trong docs/report_build_manifest.json.",
+    "results/quick/E01_qber_eve.csv; results/quick/E01_qber_eve.json.",
+    "results/quick/E02_noise_abort.csv; results/quick/E02_noise_abort.json.",
+    "results/quick/E03_sample_detection.csv; results/quick/E03_sample_detection.json.",
+    "results/bb84_backend_scaling.json",
+    "results/quick/E04_key_pipeline.csv; results/quick/E04_key_pipeline.json.",
+    "results/quick/E05_finite_key.csv; results/quick/E05_finite_key.json.",
+    "results/quick/E06_distance.csv; results/quick/E06_distance.json.",
+    "results/bb84_postprocessing.json",
+    "results/bb84_postprocessing.json",
+    "results/quick/E07_chsh.csv; results/quick/E07_chsh.json.",
+    "results/quick/E08_protocol_comparison.csv; results/quick/E08_protocol_comparison.json.",
+    "results/e91_acceptance.json",
+    "results/quick/E09_cipher_benchmark.csv; results/quick/E09_cipher_benchmark.json.",
+    "results/quick/E10_end_to_end.csv; results/quick/E10_end_to_end.json.",
+    "results/quick/E11_tamper.csv; results/quick/E11_tamper.json.",
+    "results/quick/E12_classical_mitm.csv; results/quick/E12_classical_mitm.json.",
+    "results/e12_mitm.json",
+    "results/quick/E13_detectors.csv; results/quick/E13_detectors.json.",
+    "results/quick/E14_randomness.csv; results/quick/E14_randomness.json.",
+    "results/quick/E15_quantum_security.csv; results/quick/E15_quantum_security.json.",
+    "results/randomness_acceptance.json",
+    "results/e15_quantum_security.csv; results/e15_quantum_security.json.",
+    "results/demo_chat/*/events.jsonl; không chứa nội dung khóa.",
+    "",
+    "CSV/JSON/PNG được dẫn ở mục 3.2.",
+    "SPEC.md mục 20; docs/decisions.md; mã nguồn hiện tại."
+  ],
+  "headings": [
+    [
+      1,
+      "CHƯƠNG 1. CƠ SỞ LÝ THUYẾT"
+    ],
+    [
+      2,
+      "1.1 Tổng quan về mật mã lượng tử và bài toán phân phối khóa"
+    ],
+    [
+      2,
+      "1.2 Tổng quan tài liệu và các nghiên cứu tham khảo"
+    ],
+    [
+      2,
+      "1.3 Cơ sở lý thuyết giao thức QKD, hậu xử lý và mã hóa xác thực"
+    ],
+    [
+      3,
+      "1.3.1 Qubit, phép đo và giao thức BB84"
+    ],
+    [
+      3,
+      "1.3.2 E91, rối lượng tử và kiểm tra Bell CHSH"
+    ],
+    [
+      3,
+      "1.3.3 Hậu xử lý cổ điển và độ dài khóa hữu hạn"
+    ],
+    [
+      3,
+      "1.3.4 Xác thực HMAC, HKDF và mã hóa AEAD"
+    ],
+    [
+      1,
+      "CHƯƠNG 2. PHÂN TÍCH THIẾT KẾ HỆ THỐNG"
+    ],
+    [
+      2,
+      "2.1 Phát biểu bài toán"
+    ],
+    [
+      2,
+      "2.2 Phân tích hiện trạng và ranh giới mô phỏng"
+    ],
+    [
+      2,
+      "2.3 Phân tích chức năng"
+    ],
+    [
+      3,
+      "2.3.1 Đối tượng sử dụng và hợp đồng tương tác"
+    ],
+    [
+      3,
+      "2.3.2 Chức năng 1 Mô phỏng vật lý và giao thức BB84 E91"
+    ],
+    [
+      3,
+      "2.3.3 Chức năng 2 Hậu xử lý và độ dài khóa hữu hạn"
+    ],
+    [
+      3,
+      "2.3.4 Chức năng 3 Lớp giám sát lượng tử"
+    ],
+    [
+      3,
+      "2.3.5 Chức năng 4 Xác thực cổ điển AEAD và quản lý khóa"
+    ],
+    [
+      3,
+      "2.3.6 Công nghệ sử dụng"
+    ],
+    [
+      2,
+      "2.4 Thiết kế cấu trúc dữ liệu giao thức và định dạng lưu trữ"
+    ],
+    [
+      3,
+      "2.4.1 Luồng dữ liệu và cấu trúc đối tượng chính"
+    ],
+    [
+      3,
+      "2.4.2 Cấu hình YAML và các dataclass"
+    ],
+    [
+      3,
+      "2.4.3 Định dạng nhị phân QKDH"
+    ],
+    [
+      3,
+      "2.4.4 Nhật ký JSONL bằng chứng và metadata thực nghiệm"
+    ],
+    [
+      2,
+      "2.5 Xây dựng chương trình"
+    ],
+    [
+      3,
+      "2.5.1 Kiến trúc tổng thể"
+    ],
+    [
+      3,
+      "2.5.2 Tổ chức thư mục"
+    ],
+    [
+      3,
+      "2.5.3 Các module chính và lệnh CLI"
+    ],
+    [
+      1,
+      "CHƯƠNG 3. TRIỂN KHAI VÀ ĐÁNH GIÁ KẾT QUẢ"
+    ],
+    [
+      2,
+      "3.1 Mô hình triển khai"
+    ],
+    [
+      3,
+      "3.1.1 Môi trường triển khai và nguồn dữ liệu"
+    ],
+    [
+      3,
+      "3.1.2 Công cụ sử dụng và kiểm chứng"
+    ],
+    [
+      3,
+      "3.1.3 Cấu hình hệ thống và lệnh Windows PowerShell"
+    ],
+    [
+      2,
+      "3.2 Kết quả thực nghiệm"
+    ],
+    [
+      3,
+      "3.2.1 Nhóm 1 Mô hình vật lý QBER nhiễu và xác suất phát hiện"
+    ],
+    [
+      3,
+      "3.2.2 Nhóm 2 Hậu xử lý khóa hữu hạn và khoảng cách"
+    ],
+    [
+      3,
+      "3.2.3 Nhóm 3 Giao thức E91 và so sánh BB84 E91"
+    ],
+    [
+      3,
+      "3.2.4 Nhóm 4 AEAD toàn vẹn nonce và MITM"
+    ],
+    [
+      3,
+      "3.2.5 Nhóm 5 Giám sát ngẫu nhiên và mức an toàn lượng tử"
+    ],
+    [
+      3,
+      "3.2.6 Demo ứng dụng và kiểm thử tự động"
+    ],
+    [
+      2,
+      "3.3 Nhận xét đánh giá kết quả và hạn chế"
+    ],
+    [
+      2,
+      "3.4 Kết luận"
+    ],
+    [
+      2,
+      "TÀI LIỆU THAM KHẢO"
+    ]
+  ],
+  "diagrams": {
+    "docs/report_diagrams/01_overall.png": "1401459999f3918417e1cc7c8ee9a759341c911971fa063b65bcfd677fa19047",
+    "docs/report_diagrams/02_interactions.png": "142b89d00bf21fac486c77635a979692138849b4e44f35f6abe0479dda61e6d1",
+    "docs/report_diagrams/03_physics.png": "c286aaefd05e322e92ff04a29d6490920d60fc800a61589d85692e0e81728c38",
+    "docs/report_diagrams/04_postprocess.png": "c4bffdf7ea0e226cf3f6c200758d0adf291ad20f201e1d66d016330bdad07142",
+    "docs/report_diagrams/05_monitor.png": "5ff69c6b58b86745d0ed4928a7c4c6648efe15641c687466b68b83028e091ed7",
+    "docs/report_diagrams/06_container.png": "b5498bf736ac08823ca6ef3cc613e8ab606bd4f022d4cc6e43dc21f33dcab890",
+    "docs/report_diagrams/07_session.png": "601027738058441b7648b81417106b166a5617c31ef6f98c9683607033296795",
+    "docs/report_diagrams/08_architecture.png": "9c3df37b717f734dbc6faf0fab45f23f63323a807750858fb814fa803223d6b1"
+  },
+  "validation_artifacts": {
+    "results/report_build/coverage.json": "e7a2c3346391de6d44401caae89c2c35a246cbe3d74bb8179c5587fc8a434d89",
+    "results/report_build/mypy.log": "5b7719d776158805d48502fa63fafddaa81ec23574853bf8e45b4e33ec46ac1b",
+    "results/report_build/pytest.log": "2f79ab7bc2053ab9f38e35fe6f47602719238b61a3e700e2347045a01d1e4e25",
+    "results/report_build/pytest.xml": "4cebeef5bbe4553e2528faddf545093d7a5b626db9f4157a1d7741dea1e16a98",
+    "results/report_build/ruff.log": "a4443afdcfb6d7363adb285762515ccf7cf50473b1a05c20c1a50f6bed4d26b0"
+  },
+  "report_sources": {
+    "SPEC.md": "72d61cbbb0cebeae3a559ab042c901fd38e6a37f8237f3e6bf57c10d9205c87b",
+    "AGENTS.md": "a125a98fadb34cc893f2b89a1bcb5707ab2011c69458323845e1bb19be04a07c",
+    "pyproject.toml": "b43054a5cfbdba10e608df4ea2634b1de6540268d95d2ec25a0c993dcace8e53",
+    "tools/build_report_docx.py": "1358c1a2ad44797babbcc665432e2be5b0d03293a7d20f5e413b7a2568e1d6d5",
+    "docs/decisions.md": "5e11bdf62350bbc7bf87d0e67758a6496084c5b771b5fcf721fcea13e324c8d9",
+    "docs/report_outline_vi.md": "b346b25062037069bc4b5aa02dea89ee12603c55502e6775ff83be96d7f3110d",
+    "docs/theory_vi.md": "c3c6f1668da407e1b774b40bb4ef5f1b8774bfb81c754c28f6ddf23e0b6d6091",
+    "docs/references.bib": "f03f890f45e5467ee0351c23c01f792a7cc571730cb6fbdaba079fb0f8da28f4"
+  }
+}

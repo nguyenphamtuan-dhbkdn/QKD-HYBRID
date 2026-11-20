@@ -1,5 +1,36 @@
 # Quyết định thiết kế
 
+## Báo cáo DOCX tháng 11/2026
+
+- Trình dựng `tools/build_report_docx.py` chỉ đọc kết quả đã lưu, không gọi
+  `experiments/run_all.py`. Chọn thư mục có đủ bộ E1–E15 nhất; với kho hiện tại
+  là `results/quick/`. E3 ở `results/selected/quick/`, nghiệm thu ở gốc `results/`
+  và toàn bộ bằng chứng D1 được giữ nhãn nguồn riêng.
+- Ưu tiên quy cách cụ thể ở phần ảnh mẫu khi yêu cầu chú thích xung đột:
+  tiền tố `Bảng X.`/`Hình X.` in nghiêng, tên thường, không in đậm; header bảng
+  xám `E9ECEF`, chữ đen và viền `CCCCCC`. Bảng sinh viên ở bìa không tô nền.
+- Các bảng dài chọn đầu/cuối từng nhóm metric/series (tối đa 24 hàng; E4/E8
+  tối đa 32 hàng). E7 chọn CHSH và QBER; E9 chọn thông lượng mã hóa/giải mã
+  ở cỡ tệp nhỏ nhất/lớn nhất để không bỏ mất điều kiện tệp lớn. E13
+  trình bày điểm thiết kế và FPR (tối đa 48 hàng); E14 trình bày toàn bộ tỷ lệ
+  đạt từng phép thử. Quy tắc và số hàng hiển thị được ghi ngay dưới bảng;
+  không thay ô thiếu bằng không. Mọi CSV/JSON/JSONL/PNG đều được quét và ghi
+  SHA-256 trong `docs/report_build_manifest.json`; hình thực nghiệm giữ nguyên.
+- Sơ đồ thiết kế tự sinh là mô tả mã nguồn, không phải số đo thực nghiệm.
+  Cấu hình, offset container và phiên bản môi trường lấy tự động hoặc được
+  kiểm tra đối chiếu với mã. Trường tùy chọn được ghi bằng dấu gạch dài.
+- Tên yêu cầu SessionStateMachine ánh xạ vào `MonitoredSession` + `State` +
+  `Policy` thực tế; E91 dùng cổng Bell riêng, không có toàn bộ vòng đời log
+  BB84. `FinalKey` còn cờ Eve phục vụ thí nghiệm; không dùng cờ này để phát hiện.
+- Không bổ sung pandas/PQC/OTP vào danh sách công nghệ đã hiện thực chỉ vì
+  chúng xuất hiện trong đặc tả. D2 dùng lệnh con `self-test`, khác cờ
+  `--self-test` của D1. Các biên bản pytest/coverage/ruff/mypy được đọc từ
+  `results/report_build/`, tách khỏi số liệu lịch sử.
+- Dùng `python-docx==1.2.0` qua `uv run --with`, không sửa phụ thuộc chạy của
+  qkdsim. DOCX có hai section, bìa riêng không số trang, thân đánh số từ 1.
+  Chỉ mục Word là trường TOC; danh mục bảng/hình sinh từ cùng sổ chú thích và
+  được kiểm tra tự động. Dấu thời gian ZIP được cố định để dựng lại ổn định.
+
 ## M0
 
 - Tệp YAML là tập hợp các giá trị ghi đè lên cấu hình mặc định ở mục 19 của đặc tả. Trình đọc kiểm tra tên trường, kiểu và miền giá trị. YAML dùng định dạng `chsh_z` ở mục 19 và `fixed_z`/`fixed_x` ở mục 18.
