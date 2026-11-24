@@ -28,4 +28,8 @@ dist/
 !/results/quick/report_results.md
 !/results/quick/report_vi.md
 !/results/quick/run_all.json
+!/results/report_summary/
+/results/report_summary/*
+!/results/report_summary/*.json
+!/results/report_summary/*.png
 /docs/papers/

@@ -348,3 +348,52 @@
   CSV và PDF, bảng E8/E15 và phần diễn giải từ từng lượt chạy. BibTeX dùng
   thông tin thư mục từ các bản công khai khớp nhan đề trong đặc tả. Phần
   đối chiếu theo số trang chờ PDF của người dùng trong `docs/papers/`.
+
+## Viết lại báo cáo theo hướng báo cáo môn học
+
+- Giữ trang bìa đang có trong bản Word, gồm thông tin sinh viên và giảng viên.
+  Bản trước khi viết lại được sao lưu trong `results/report_build/before_rewrite/`.
+- Hai chương đầu chỉ giới thiệu lý thuyết và luồng hoạt động. Chương thực nghiệm
+  giải thích kịch bản, xu hướng, nguyên nhân và giới hạn của từng nhóm kết quả.
+  Không đưa bảng ánh xạ mã nguồn hoặc danh sách cấu trúc tệp vào nội dung chính.
+- `experiments/report_summary.py` đọc lại CSV/JSON đã lưu để dựng hình gọn hơn,
+  giữ nguyên dữ liệu và khoảng sai số. Không chạy lại thí nghiệm, không bổ sung
+  số liệu dự đoán. Dữ liệu và hình được lưu trong `results/report_summary/`.
+- Nhật ký demo chỉ xác nhận trạng thái cấp hoặc dừng khóa; không diễn giải
+  trạng thái cho phép gửi thành bằng chứng Bob đã nhận tin. Kết quả mã hóa tệp
+  được đối chiếu bằng thực nghiệm khứ hồi và kiểm tra sửa đổi riêng.
+- Dựng lại dữ liệu bằng `uv run python experiments/report_summary.py`, sau đó
+  dựng Word bằng `uv run --with python-docx==1.2.0 python tools/build_report_docx.py`.
+  Trên Windows có Microsoft Word, `./tools/render_report.ps1` cập nhật mục lục
+  và xuất PDF để kiểm tra bố cục. PDF và ảnh kiểm tra không phải tài liệu nộp.
+
+## Mở rộng báo cáo và thêm danh sách có liên kết
+
+- Yêu cầu mở rộng mới ưu tiên giải thích sâu Chương 1 và Chương 2, thay cho
+  giới hạn chỉ giữ công thức tối thiểu của bản ngắn. Nội dung được tách vào
+  `tools/report_expansion_vi.py`; các bảng so sánh, cấu hình và kết quả được
+  tạo trong `experiments/report_summary.py` và lưu vào JSON cùng số liệu gốc.
+- Bản ngắn tiếp tục làm nguồn trang bìa. Script xuất bản mở rộng riêng tại
+  `docs/BaoCao_QKD_Hybrid_MoRong.docx` và PDF cùng tên, tránh ghi đè bản ngắn.
+- Bìa và mục lục thuộc các section không có header, footer hoặc số trang.
+  Ngay trước Danh sách hình ảnh có section break Next Page; section mới
+  bỏ liên kết với phần trước và đánh số lại từ một. Ngày trên bìa nằm trong
+  nội dung trang, không nằm trong footer.
+- Chú thích hình và bảng dùng SEQ và bookmark. Danh sách dùng trường TOC
+  với khóa chuyển `\\c` tương ứng nhãn Hình hoặc Bảng và `\\h` để tạo liên kết.
+  Đây là danh sách tự động theo caption, không phải danh sách gõ tay.
+- Header và footer dùng Times New Roman và đường kẻ đoạn màu đen. Tab giữa
+  còn lại từ style Footer cũ được xóa để trường PAGE đến đúng tab căn phải.
+- `tools/render_report.ps1` dùng Microsoft Word chạy ẩn, cập nhật các trường,
+  chuyển sang bố cục in và cập nhật lại số trang sau lần xuất PDF đầu tiên.
+  Bước này xử lý chênh lệch trang do Word đẩy tiêu đề theo đoạn phía sau.
+- `tools/verify_report.py` kiểm tra số trang trong khoảng yêu cầu, header/footer
+  trên các trang PDF, trang bắt đầu đánh số, bookmark đích, số trang hiển thị
+  của từng liên kết Word và các liên kết nội bộ còn lại trong PDF. Kết quả
+  nằm trong `results/report_build/expanded_render/verification.json`.
+- Trình tự chạy trên PowerShell là tạo lại dữ liệu bằng
+  `uv run python experiments/report_summary.py`, dựng Word bằng
+  `uv run --with python-docx==1.2.0 python tools/build_report_docx.py`, rồi chạy
+  `./tools/render_report.ps1`. Kiểm tra bản xuất bằng Python có `python-docx`
+  và `pypdf` qua `tools/verify_report.py`; phiên làm việc này dùng Python
+  và các thư viện tài liệu được đóng gói cùng môi trường Codex.
